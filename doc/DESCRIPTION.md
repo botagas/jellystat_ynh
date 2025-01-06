@@ -10,16 +10,8 @@ Adapted for usage within Yunohost. Might behave even weirder.
 - Auto sync library items
 - Jellyfin Statistics Plugin Integration
 
-<image>/doc/screenshots/Home.PNG</image>
-<picture>
-  <img alt="Users" src="/doc/screenshots/Users.PNG">
-</picture>
-<picture>
-  <img alt="Activity" src="/doc/screenshots/Activity.PNG">
-</picture>
-<picture>
-  <img alt="Libraries" src="/doc/screenshots/Libraries.PNG">
-</picture>
-<picture>
-  <img alt="Settings" src="/doc/screenshots/settings.PNG">
-</picture>
+[Home](/doc/screenshots/Home.PNG)
+[Users](/doc/screenshots/Users.PNG)
+[Activity](/doc/screenshots/Activity.PNG)
+[Libraries](/doc/screenshots/Libraries.PNG)
+[Settings](/doc/screenshots/settings.PNG)
