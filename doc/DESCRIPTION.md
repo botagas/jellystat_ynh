@@ -9,9 +9,3 @@ Adapted for usage within Yunohost. Might behave even weirder.
 - Backup and restore Data
 - Auto sync library items
 - Jellyfin Statistics Plugin Integration
-
-![Home](/doc/screenshots/Home.PNG)
-![Users](/doc/screenshots/Users.PNG)
-![Activity](/doc/screenshots/Activity.PNG)
-![Libraries](/doc/screenshots/Libraries.PNG)
-![Settings](/doc/screenshots/settings.PNG)
