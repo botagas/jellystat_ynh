@@ -21,6 +21,17 @@ ynh_app_setting_set --key=postgres_user --value="$postgres_user"
 ynh_app_setting_set --key=postgres_password --value="$postgres_password"
 ynh_app_setting_set --key=postgres_db --value="$postgres_db"
 
+# Other settings
+app=$YNH_APP_INSTANCE_NAME
+install_dir="/var/www/$app"
+domain=$YNH_APP_DOMAIN
+app_port=$(ynh_find_port --unused-only)
+jwt_secret=$(ynh_string_random)
+
+# Save app settings
+ynh_app_setting_set --key=app_port --value="$app_port"
+ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
+
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
@@ -34,16 +45,25 @@ ynh_install_app_dependencies nodejs npm postgresql
 
 ynh_script_progression --message="Configuring PostgreSQL database..." --weight=1
 
-# Create PostgreSQL user
+# Set PostgreSQL db info
+postgres_user="jellystat_user"
+postgres_password=$(ynh_string_random)
+postgres_db="jfstat"  # Align with application's expected default
+
+# Save PostgreSQL credentials
+ynh_app_setting_set --key=postgres_user --value="$postgres_user"
+ynh_app_setting_set --key=postgres_password --value="$postgres_password"
+ynh_app_setting_set --key=postgres_db --value="$postgres_db"
+
+# Set up PostgreSQL database and user
 sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='$postgres_user'" | grep -q 1 || \
 sudo -u postgres psql -c "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
 
-# Create PostgreSQL database
 sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw $postgres_db || \
 sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
 
-# Grant privileges
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $postgres_user;"
+
 
 #=================================================
 # DOWNLOAD, CHECK, AND SET UP SOURCE
@@ -55,10 +75,20 @@ ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 # Set ownership of the installation directory
 chown -R "$app:www-data" "$install_dir"
 
-# Install NPM dependencies
-ynh_script_progression --message="Installing NPM dependencies..." --weight=2
+# Update create_database.js to use "IF NOT EXISTS"
+sed -i 's/CREATE DATABASE .*/CREATE DATABASE IF NOT EXISTS ${_POSTGRES_DATABASE};/' "$install_dir/backend/create_database.js"
+
+# Update swagger.json to set host as the domain
+sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
+
+#=================================================
+# INSTALL NPM DEPENDENCIES AND BUILD
+#=================================================
+
+ynh_script_progression --message="Installing and building app dependencies..." --weight=2
 cd "$install_dir"
 npm install
+npm run build
 
 #=================================================
 # CONFIGURE ENVIRONMENT VARIABLES
@@ -71,8 +101,8 @@ POSTGRES_PASSWORD=$postgres_password
 POSTGRES_IP=127.0.0.1
 POSTGRES_PORT=5432
 POSTGRES_DB=$postgres_db
-JWT_SECRET=$(ynh_string_random)
-TZ=Etc/UTC
+JWT_SECRET=$jwt_secret
+PORT=$app_port
 EOL
 
 # Set appropriate permissions for the `.env` file
@@ -84,21 +114,11 @@ chown "$app:$app" "$install_dir/.env"
 #=================================================
 
 ynh_script_progression --message="Setting up systemd service..." --weight=2
-ynh_add_systemd --template="systemd.service" --service_name="$app"
+ynh_add_systemd --service_name="$app" --template="systemd.service"
 
 # Reload systemd and start the service
 systemctl daemon-reload
 ynh_systemctl --service="$app" --action="start"
-
-#=================================================
-# SET UP NGINX CONFIGURATION
-#=================================================
-
-ynh_script_progression --message="Configuring NGINX..." --weight=2
-ynh_add_nginx_config
-
-# Reload NGINX
-systemctl reload nginx
 
 #=================================================
 # FINISH INSTALLATION
