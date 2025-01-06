@@ -106,6 +106,18 @@ ynh_script_progression --message="Setting up systemd service..." --weight=2
 ynh_config_add_systemd
 
 #=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Starting $app's systemd service..."
+
+# Start a systemd service
+ynh_systemctl --service=$app --action="start"  --wait_until="Starting Jellystat version"
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+#=================================================
 # FINISH INSTALLATION
 #=================================================
 
