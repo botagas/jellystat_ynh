@@ -64,9 +64,6 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $post
 ynh_script_progression "Setting up source files..." 
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 
-# Set ownership of the installation directory
-chown -R "$app:www-data" "$install_dir"
-
 # Update create_database.js to use "IF NOT EXISTS"
 sed -i "s|'CREATE DATABASE ' \\+ _POSTGRES_DATABASE|'CREATE DATABASE IF NOT EXISTS ${postgres_db};'|" "$install_dir/backend/create_database.js"
 
@@ -87,6 +84,9 @@ ynh_script_progression "Installing and building app dependencies..."
 cd "$install_dir"
 npm install
 npm run build
+
+# Set ownership of the installation directory
+chown -R "$app:www-data" "$install_dir"
 
 #=================================================
 # CONFIGURE ENVIRONMENT VARIABLES
