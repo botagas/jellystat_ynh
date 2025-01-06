@@ -114,10 +114,6 @@ ynh_script_progression "Starting $app's systemd service..."
 ynh_systemctl --service=$app --action="start"  --wait_until="Starting Jellystat version"
 
 #=================================================
-# END OF SCRIPT
-#=================================================
-
-#=================================================
 # FINISH INSTALLATION
 #=================================================
 
