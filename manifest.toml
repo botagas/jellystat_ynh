@@ -41,7 +41,7 @@ ram.runtime = "100M"
     [resources.sources.main]
     # Specify the repository to clone
     url = "https://github.com/CyferShepard/Jellystat/archive/refs/tags/1.1.2.tar.gz"
-    sha256 = "53C1AC04910AF2DF5EBD4B0A46EC1FD6C85C7E84986F4B2A53FF9E1D04FE1A57"
+    sha256 = "53c1ac04910af2df5ebd4b0a46ec1fd6c85c7e84986f4b2a53ff9e1d04fe1a57"
     branch = "main"
 
     [resources.system_user]
