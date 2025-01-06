@@ -106,6 +106,12 @@ ynh_script_progression "Setting up systemd service..."
 ynh_config_add_systemd
 
 #=================================================
+# SET UP NGINX
+#=================================================
+
+ynh_add_nginx_config --template=./conf/nginx.conf --domain=$domain --path="/"
+
+#=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
