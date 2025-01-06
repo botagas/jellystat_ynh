@@ -33,13 +33,6 @@ ynh_app_setting_set --key=app_port --value="$app_port"
 ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-
-ynh_script_progression --message="Installing dependencies..." --weight=1
-ynh_install_app_dependencies nodejs npm postgresql
-
-#=================================================
 # SET UP POSTGRESQL DATABASE
 #=================================================
 
