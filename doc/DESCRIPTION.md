@@ -25,8 +25,3 @@ Adapted for usage within Yunohost. Might behave even weirder.
 <picture>
   <img alt="Settings" src="https://github.com/CyferShepard/Jellystat/blob/main/screenshots/settings.PNG">
 </picture>
-# ![Home](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Home.PNG)
-# ![Users](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Users.PNG)
-# ![Activity](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Activity.PNG)
-# ![Libraries](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Libraries.PNG)
-# ![Settings](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/settings.PNG)
