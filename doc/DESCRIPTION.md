@@ -10,7 +10,7 @@ Adapted for usage within Yunohost. Might behave even weirder.
 - Auto sync library items
 - Jellyfin Statistics Plugin Integration
 
-/doc/screenshots/Home.PNG
+<image>/doc/screenshots/Home.PNG</image>
 <picture>
   <img alt="Users" src="/doc/screenshots/Users.PNG">
 </picture>
