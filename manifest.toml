@@ -59,3 +59,7 @@ ram.runtime = "100M"
     [resources.ports]
     # Reserve the backend port for Jellystat
     main.default = 3000
+    
+    [resources.apt]
+    # Automatically installs/uninstalls the following packages
+    packages = "nodejs, npm, postgresql, php8.2-cli, php8.2-fpm"
