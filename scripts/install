@@ -70,6 +70,8 @@ sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$insta
 #=================================================
 # INSTALL NPM DEPENDENCIES AND BUILD
 #=================================================
+ynh_script_progression --message="Installing Node.js..." --weight=1
+ynh_nodejs_install
 
 ynh_script_progression --message="Installing and building app dependencies..." --weight=2
 cd "$install_dir"
