@@ -10,8 +10,8 @@ WorkingDirectory=__INSTALL_DIR__/
 EnvironmentFile=/var/www/jellystat/.env
 Environment=NODE_ENV=production
 ExecStart=__NODEJS_DIR__/node __INSTALL_DIR__/backend/server.js
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=__APP__
 
 ### Security and sandboxing options to harden the service
