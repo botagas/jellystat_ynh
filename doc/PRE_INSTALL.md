@@ -1,4 +1,4 @@
-**Jellystat** is a free and open source Statistics App for Jellyfin! (This project is still in development - expect some weirdness).
+**Jellystat** is a free and open source Statistics App for Jellyfin! (This project is still in development - expect some weirdness). \
 Adapted for usage within Yunohost. Might behave even weirder.
 # Current Features
 - Session Monitoring and logging
