@@ -44,7 +44,11 @@ Some long and extensive description of what the app is and does, lorem ipsum dol
 
 ## Screenshots
 
-![Screenshot of Example app](./doc/screenshots/example.jpg)
+![Home](/doc/screenshots/Home.PNG)
+![Users](/doc/screenshots/Users.PNG)
+![Activity](/doc/screenshots/Activity.PNG)
+![Libraries](/doc/screenshots/Libraries.PNG)
+![Settings](/doc/screenshots/settings.PNG)
 
 ## Disclaimers / important information
 
