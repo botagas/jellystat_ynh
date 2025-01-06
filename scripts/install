@@ -16,6 +16,13 @@ postgres_user="jfstat"
 postgres_password=$(ynh_string_random)
 postgres_db="jfstat"
 
+# Save the credentials in the app settings for reference
+# Define default admin username and generate a secure password
+js_user="admin"
+js_password=$(ynh_string_random)
+ynh_app_setting_set --key=js_user --value="$js_user"
+ynh_app_setting_set --key=js_password --value="$js_password"
+
 # Save PostgreSQL credentials as app settings for potential reuse
 ynh_app_setting_set --key=postgres_user --value="$postgres_user"
 ynh_app_setting_set --key=postgres_password --value="$postgres_password"
