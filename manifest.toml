@@ -34,7 +34,7 @@ ram.runtime = "100M"
 
     [install.path]
     type = "path"
-    default = "/jellystat"
+    default = "/"
 
 [resources]
     [resources.sources]
