@@ -8,7 +8,8 @@ User=__APP__
 Group=__APP__
 WorkingDirectory=__INSTALL_DIR__/
 EnvironmentFile=/var/www/jellystat/.env
-ExecStart=/usr/bin/node /var/www/jellystat/backend/server.js
+Environment=NODE_ENV=production
+ExecStart=__NODEJS_DIR__/node backend/server.js
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 
