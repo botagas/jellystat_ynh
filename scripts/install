@@ -36,7 +36,7 @@ ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 # SET UP POSTGRESQL DATABASE
 #=================================================
 
-ynh_script_progression --message="Configuring PostgreSQL database..." --weight=1
+ynh_script_progression "Configuring PostgreSQL database..." 
 
 # Set up PostgreSQL database and user
 sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='$postgres_user'" | grep -q 1 || \
@@ -52,7 +52,7 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $post
 # DOWNLOAD, CHECK, AND SET UP SOURCE
 #=================================================
 
-ynh_script_progression --message="Setting up source files..." --weight=2
+ynh_script_progression "Setting up source files..." 
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 
 # Set ownership of the installation directory
@@ -70,11 +70,11 @@ sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$insta
 #=================================================
 # INSTALL NPM DEPENDENCIES AND BUILD
 #=================================================
-ynh_script_progression --message="Installing Node.js..." --weight=1
+ynh_script_progression "Installing Node.js..." 
 nodejs_version=18
 ynh_nodejs_install
 
-ynh_script_progression --message="Installing and building app dependencies..." --weight=2
+ynh_script_progression "Installing and building app dependencies..." 
 cd "$install_dir"
 npm install
 npm run build
@@ -83,7 +83,7 @@ npm run build
 # CONFIGURE ENVIRONMENT VARIABLES
 #=================================================
 
-ynh_script_progression --message="Configuring environment variables..." --weight=2
+ynh_script_progression "Configuring environment variables..." 
 cat <<EOL > "$install_dir/.env"
 POSTGRES_USER=$postgres_user
 POSTGRES_PASSWORD=$postgres_password
@@ -102,7 +102,7 @@ chown "$app:$app" "$install_dir/.env"
 # SET UP SYSTEMD SERVICE
 #=================================================
 
-ynh_script_progression --message="Setting up systemd service..." --weight=2
+ynh_script_progression "Setting up systemd service..." 
 ynh_config_add_systemd
 
 #=================================================
@@ -117,4 +117,4 @@ ynh_systemctl --service=$app --action="start"  --wait_until="Starting Jellystat 
 # FINISH INSTALLATION
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed!" --last
+ynh_script_progression "Installation of $app completed!" --last
