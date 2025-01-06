@@ -38,7 +38,7 @@ Some long and extensive description of what the app is and does, lorem ipsum dol
 - Excepteur sint occaecat cupidatat non proident, sunt in culpa."
 
 
-**Shipped version:** 1.0~ynh1
+**Shipped version:** 1.01~ynh1
 
 **Demo:** https://demo.example.com
 
@@ -53,37 +53,37 @@ Some long and extensive description of what the app is and does, lorem ipsum dol
 ## Disclaimers / important information
 
 * Any known limitations, constrains or stuff not working, such as (but not limited to):
-    * requiring a full dedicated domain ?
-    * architectures not supported ?
-    * not-working single-sign on or LDAP integration ?
-    * the app requires an important amount of RAM / disk / .. to install or to work properly
-    * etc...
+    * requires a dedicated domain
+    * may not work on all architecture types (not tested)
+    * SSO and LDAP are not configured and may not work
+    * is not intended to be exposed to the public internet
+    * uses deprecated dependencies because of the source code
 
 * Other infos that people should be aware of, such as:
-    * any specific step to perform after installing (such as manually finishing the install, specific admin credentials, ...)
-    * how to configure / administrate the application if it ain't obvious
-    * upgrade process / specificities / things to be aware of ?
-    * security considerations ?
+    * username and password are created and provided to the user post install
+    * some webUI elements may not be correct at the present time
+    * upgrade / removal / installation process is still experimental
+    * backups of your instance and data is advised
 
 ## Documentation and resources
 
-* Official app website: <https://example.com>
-* Official user documentation: <https://yunohost.org/apps>
-* Official admin documentation: <https://yunohost.org/packaging_apps>
-* Upstream app code repository: <https://some.forge.com/example/example>
-* YunoHost documentation for this app: <https://yunohost.org/app_example>
-* Report a bug: <https://github.com/YunoHost-Apps/example_ynh/issues>
+* Official app website: <https://github.com/CyferShepard/Jellystat>
+* Official user documentation: <https://github.com/CyferShepard/Jellystat>
+* Official admin documentation: <https://github.com/CyferShepard/Jellystat>
+* Upstream app code repository: <https://github.com/CyferShepard/Jellystat>
+* YunoHost documentation for this app: <https://github.com/botagas/jellystat_ynh>
+* Report a bug: <https://github.com/botagas/jellystat_ynh/issues>
 
 ## Developer info
 
-Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/example_ynh/tree/testing).
+Please send your pull request to the [testing branch](https://github.com/botagas/jellystat_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
 
 ``` bash
-sudo yunohost app install https://github.com/YunoHost-Apps/example_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/botagas/jellystat_ynh/tree/testing --debug
 or
-sudo yunohost app upgrade example -u https://github.com/YunoHost-Apps/example_ynh/tree/testing --debug
+sudo yunohost app upgrade example -u https://github.com/botagas/jellystat_ynh/tree/testing --debug
 ```
 
 **More info regarding app packaging:** <https://yunohost.org/packaging_apps>
