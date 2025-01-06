@@ -59,7 +59,7 @@ ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 chown -R "$app:www-data" "$install_dir"
 
 # Update create_database.js to use "IF NOT EXISTS"
-sed -i "s|CREATE DATABASE .*|CREATE DATABASE IF NOT EXISTS ${postgres_db};|" "$install_dir/backend/create_database.js"
+sed -i "s|'CREATE DATABASE ' \\+ _POSTGRES_DATABASE|'CREATE DATABASE IF NOT EXISTS ${postgres_db};'|" "$install_dir/backend/create_database.js"
 
 # Update swagger.json to set host as the domain
 sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
