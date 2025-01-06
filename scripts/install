@@ -71,6 +71,9 @@ sed -i 's/CREATE DATABASE .*/CREATE DATABASE IF NOT EXISTS ${_POSTGRES_DATABASE}
 # Update swagger.json to set host as the domain
 sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
 
+# Update server.js to use the allocated port
+sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
+
 #=================================================
 # INSTALL NPM DEPENDENCIES AND BUILD
 #=================================================
