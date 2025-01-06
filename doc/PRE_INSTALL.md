@@ -9,8 +9,8 @@ Jellystat is a free and open source Statistics App for Jellyfin! (This project i
 - Auto sync library items
 - Jellyfin Statistics Plugin Integration
 
-[Home](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Home.PNG)
-[Users](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Users.PNG)
-[Activity](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Activity.PNG)
-[Libraries](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Libraries.PNG)
-[Settings](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/settings.PNG)
+![Home](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Home.PNG)
+![Users](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Users.PNG)
+![Activity](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Activity.PNG)
+![Libraries](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Libraries.PNG)
+![Settings](https://github.com/CyferShepard/Jellystat/blob/main/screenshots/settings.PNG)
