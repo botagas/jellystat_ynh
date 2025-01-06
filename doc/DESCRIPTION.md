@@ -11,17 +11,17 @@ Adapted for usage within Yunohost. Might behave even weirder.
 - Jellyfin Statistics Plugin Integration
 
 <picture>
-  <img alt="Home" src="https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Home.PNG">
+  <img alt="Home" src="doc/screenshots/Home.PNG">
 </picture>
 <picture>
-  <img alt="Users" src="https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Users.PNG">
+  <img alt="Users" src="doc/screenshots/Users.PNG">
 </picture>
 <picture>
-  <img alt="Activity" src="https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Activity.PNG">
+  <img alt="Activity" src="doc/screenshots/Activity.PNG">
 </picture>
 <picture>
-  <img alt="Libraries" src="https://github.com/CyferShepard/Jellystat/blob/main/screenshots/Libraries.PNG">
+  <img alt="Libraries" src="doc/screenshots/Libraries.PNG">
 </picture>
 <picture>
-  <img alt="Settings" src="https://github.com/CyferShepard/Jellystat/blob/main/screenshots/settings.PNG">
+  <img alt="Settings" src="doc/screenshots/settings.PNG">
 </picture>
