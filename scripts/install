@@ -38,15 +38,18 @@ ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 
 ynh_script_progression "Configuring PostgreSQL database..." 
 
+# Temporarily grant the CREATEDB privilege to the user
+sudo -u postgres psql -c "ALTER USER $postgres_user CREATEDB;"
+
 # Set up PostgreSQL database and user
 sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='$postgres_user'" | grep -q 1 || \
 sudo -u postgres psql -c "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
-
 sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw $postgres_db || \
 sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
-
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $postgres_user;"
 
+# Revoke the CREATEDB privilege after installation
+sudo -u postgres psql -c "ALTER USER $postgres_user NOCREATEDB;"
 
 #=================================================
 # DOWNLOAD, CHECK, AND SET UP SOURCE
