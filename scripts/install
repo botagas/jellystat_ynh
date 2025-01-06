@@ -109,7 +109,7 @@ ynh_config_add_systemd
 # SET UP NGINX
 #=================================================
 
-ynh_add_nginx_config --template=./conf/nginx.conf --domain=$domain --path="/"
+ynh_add_nginx_config
 
 #=================================================
 # START SYSTEMD SERVICE
