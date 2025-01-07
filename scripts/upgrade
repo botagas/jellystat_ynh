@@ -7,6 +7,17 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# INITIALIZE SETTINGS AND VARIABLES
+#=================================================
+app_port=$(ynh_find_port --unused-only)
+postgres_user="jfstat"
+postgres_password=$(ynh_string_random)
+postgres_db="jfstat"
+js_user="admin"
+js_password=$(ynh_string_random)
+jwt_secret=$(ynh_string_random)
+
+#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
