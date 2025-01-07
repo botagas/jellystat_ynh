@@ -6,6 +6,7 @@
 app=$YNH_APP_INSTANCE_NAME
 domain=$YNH_APP_ARG_DOMAIN
 app_port=$(ynh_find_port --unused-only)
+nodejs_version=20
 
 # PostgreSQL and Jellystat configuration
 postgres_user="jfstat"
