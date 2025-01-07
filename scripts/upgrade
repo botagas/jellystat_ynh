@@ -86,9 +86,9 @@ ynh_script_progression "Configuring $app's systemd service..."
 ynh_config_add_systemd
 
 #=================================================
-# INTEGRATE SERVICE IN YUNOHOST
+# ADD SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression "Integrating service in YunoHost..."
+ynh_script_progression "Adding service in YunoHost..."
 
 yunohost service add "$app" --description="Jellystat Service" --log="/var/log/$app/$app.log"
 
