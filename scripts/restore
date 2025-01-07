@@ -64,7 +64,7 @@ if [ -f "$backup_dir/db.sql" ]; then
     ynh_psql_db_shell $postgres_db <<< "DROP DATABASE IF EXISTS $postgres_db;"
 
     # Recreate the database
-    ynh_psql_db_shell $postgres_db <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
+    sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
 
     # Restore the dump into the newly created database
     ynh_psql_db_shell $postgres_db < "$backup_dir/db.sql"
