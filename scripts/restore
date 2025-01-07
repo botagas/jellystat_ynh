@@ -66,6 +66,7 @@ if [ -f "$backup_dir/db.sql" ]; then
 
     # Recreate the user
     sudo -u postgres psql -c "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
+    sudo -u postgres psql -c "ALTER USER $postgres_user CREATEDB;"
 
     # Recreate the database
     sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
