@@ -19,7 +19,7 @@ ynh_print_info "Declaring files to be backed up..."
 # BACKUP THE APP MAIN DIR
 #=================================================
 
-ynh_backup "$install_dir"
+BACKUP_CORE_ONLY=0 ynh_backup "$install_dir"
 ynh_backup "$data_dir"
 
 #=================================================
@@ -42,7 +42,7 @@ ynh_print_info "Backing up the PostgreSQL database..."
 
 # Backup PostgreSQL database
 ynh_psql_dump_db "$postgres_db" > "$backup_dir/db.sql"
-BACKUP_CORE_ONLY=0 ynh_backup "$backup_dir/db.sql"
+ynh_backup "$backup_dir/db.sql"
 
 #=================================================
 # END OF SCRIPT
