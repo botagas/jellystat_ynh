@@ -3,8 +3,11 @@
 #=================================================
 # COMMON VARIABLES AND CUSTOM HELPERS
 #=================================================
-app=jellystat
-nodejs_version=20
+app=$YNH_APP_INSTANCE_NAME
+domain=$YNH_APP_ARG_DOMAIN
+app_port=$(ynh_find_port --unused-only)
+jwt_secret=$(ynh_string_random)nodejs_version=20
+install_dir="/var/www/$app"
 backup_dir="/home/yunohost.app/$app/backups"
 backup_data="/var/www/$app/backend/backup-data"
 data_dir="/home/yunohost.app/$app"
