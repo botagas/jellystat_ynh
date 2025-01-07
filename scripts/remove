@@ -65,16 +65,15 @@ ynh_script_progression --message="Removing APT dependencies..."
 ynh_apt_remove_dependencies
 
 # Remove the app's configuration and other specific files
-# ynh_secure_remove --file="$install_dir"
-# ynh_secure_remove --file="/var/log/$app"
 install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
 if [ -n "$install_dir" ]; then
-    rm -rf "$install_dir"
+    ynh_safe_rm "$install_dir"
 else
     echo "Warning: install_dir not found in app settings, using default path."
-    rm -rf /var/www/jellystat
+    ynh_safe_rm "/var/www/jellystat"
 fi
-rm -rf /var/log/jellystat
+ynh_safe_rm "/var/log/jellystat"
+ynh_safe_rm "$data_dir"
 #=================================================
 # REMOVE SERVICE IN YUNOHOST
 #=================================================
