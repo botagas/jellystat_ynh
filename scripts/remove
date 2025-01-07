@@ -70,14 +70,6 @@ else
 fi
 ynh_safe_rm "/var/log/jellystat"
 ynh_safe_rm "$data_dir"
-#=================================================
-# REMOVE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression "Removing the service from YunoHost..."
-
-if yunohost service status "$app" >/dev/null; then
-    yunohost service remove "$app"
-fi
 
 #=================================================
 # END OF SCRIPT
