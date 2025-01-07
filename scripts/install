@@ -10,6 +10,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 # INITIALIZE SETTINGS AND VARIABLES
 #=================================================
+app_port=$(ynh_find_port --unused-only)
 
 ynh_app_setting_set --app=$app --key=do_not_backup_data --value=0
 
