@@ -12,7 +12,7 @@ version = "1.1.2~ynh1"
 maintainers = ["botagas"]
 
 [upstream]
-license = "MIT"
+license = "GPL-3.0-or-later"
 website = "https://github.com/CyferShepard/Jellystat"
 userdoc = "https://github.com/CyferShepard/Jellystat"
 code = "https://github.com/botagas/jellystat_ynh"
