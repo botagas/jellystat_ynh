@@ -104,5 +104,5 @@ ynh_systemctl --service=nginx --action=reload
 #=================================================
 # END OF SCRIPT
 #=================================================
-
+ynh_psql_db_shell $postgres_db <<< "ALTER USER $postgres_user NOCREATEDB;"
 ynh_script_progression "Restoration completed for $app"
