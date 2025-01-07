@@ -36,6 +36,7 @@ if [ "$current_nodejs_version" != "$required_nodejs_version" ]; then
     ynh_app_setting_set --app=$app --key=nodejs_version --value=$required_nodejs_version
 else
     ynh_script_progression "Node.js is already at version $required_nodejs_version."
+    ynh_nodejs_install
 fi
 
 #=================================================
