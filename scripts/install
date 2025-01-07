@@ -84,9 +84,6 @@ cd "$install_dir"
 npm install
 npm run build
 
-# Set ownership of the installation directory
-chown -R "$app:www-data" "$install_dir"
-
 #=================================================
 # CONFIGURE ENVIRONMENT VARIABLES
 #=================================================
@@ -107,6 +104,13 @@ EOL
 # Set appropriate permissions for the `.env` file
 chmod 600 "$install_dir/.env"
 chown "$app:$app" "$install_dir/.env"
+
+# Set permissions for the entire install directory
+chown -R $app:$app "$install_dir"
+
+# Adjust permissions for web-accessible directories
+chown -R $app:www-data "$install_dir/backend"
+chown -R $app:www-data "$install_dir/dist"
 
 #=================================================
 # SET UP SYSTEMD SERVICE
