@@ -8,4 +8,4 @@ The app id is `__ID__`
 
 The **default username** is `__JS_USER__`
 
-The **randomly generated password** is `__JS_PASSWORD__`
+The **default password** is `__JS_PASSWORD__`
