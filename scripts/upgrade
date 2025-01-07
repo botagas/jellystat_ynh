@@ -91,7 +91,7 @@ ynh_config_add_systemd
 #=================================================
 ynh_script_progression "Integrating service in YunoHost..."
 
-yunohost service add $app --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Jellystat Service" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
