@@ -56,9 +56,9 @@ sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.
 sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
 
 # Set up backupfolder according to source /classes/backup.js file
-mkdir -p "$install_dir/backend/backup-data"
 mkdir -p "$data_dir"
 mkdir -p "$backup_dir"
+mkdir -p "$backup_data"
 
 #=================================================
 # INSTALL NPM DEPENDENCIES AND BUILD
