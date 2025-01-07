@@ -7,7 +7,7 @@ name = "Jellystat"
 description.en = "A statistics dashboard for Jellyfin servers."
 description.fr = "Un tableau de bord de statistiques pour les serveurs Jellyfin."
 
-version = "1.0~ynh1"
+version = "1.1.2~ynh1"
 
 maintainers = ["botagas"]
 
@@ -15,7 +15,7 @@ maintainers = ["botagas"]
 license = "MIT"
 website = "https://github.com/CyferShepard/Jellystat"
 userdoc = "https://github.com/CyferShepard/Jellystat"
-code = "https://github.com/CyferShepard/Jellystat"
+code = "https://github.com/botagas/jellystat_ynh"
 
 [integration]
 yunohost = ">= 11.2"
