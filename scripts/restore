@@ -51,11 +51,6 @@ ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 #=================================================
 # RESTORE DATABASE
 #=================================================
-ynh_script_progression "Restoring the PostgreSQL database..."
-
-#=================================================
-# RESTORE DATABASE
-#=================================================
 ynh_print_info "Restoring the PostgreSQL database..."
 
 # Verify if the database dump exists in the backup directory
