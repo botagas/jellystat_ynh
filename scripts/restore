@@ -15,9 +15,6 @@ ynh_script_progression "Restoring the app main directory..."
 
 ynh_restore "$install_dir"
 
-# Set appropriate permissions
-chown -R "$app:www-data" "$install_dir"
-
 #=================================================
 # RESTORE ENVIRONMENT VARIABLES
 #=================================================
@@ -25,8 +22,16 @@ ynh_script_progression "Restoring the environment variables file..."
 
 ynh_restore "$install_dir/.env"
 
+# Set permissions for the .env file, if present
 chmod 600 "$install_dir/.env"
 chown "$app:$app" "$install_dir/.env"
+
+# Set permissions for the entire install directory
+chown -R $app:$app "$install_dir"
+
+# Adjust permissions for web-accessible directories
+chown -R $app:www-data "$install_dir/backend"
+chown -R $app:www-data "$install_dir/dist"
 
 #=================================================
 # RESTORE SYSTEMD SERVICE
@@ -69,6 +74,13 @@ fi
 ynh_script_progression "Reinstalling dependencies..."
 
 ynh_nodejs_install
+
+#=================================================
+# ADD SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression "Adding service in YunoHost..."
+
+yunohost service add $app --log="/var/log/$app/$app.log"
 
 #=================================================
 # RELOAD AND START SERVICES
