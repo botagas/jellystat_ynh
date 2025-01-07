@@ -51,6 +51,6 @@ BACKUP_CORE_ONLY=0 ynh_backup db.sql
 #=================================================
 ynh_print_info "Cleanup of the temporary backup directory..."
 # Cleanup temporary backup directory
-ynh_safe_rm "$backup_dir"
+ynh_safe_rm "$backup_dir/db.sql"
 
 ynh_print_info "Backup script completed for $app. (YunoHost will then actually copy those files to the archive)."
