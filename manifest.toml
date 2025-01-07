@@ -55,6 +55,8 @@ ram.runtime = "100M"
     [resources.install_dir]
     # Directory where Jellystat will be installed
     dir = "/var/www/jellystat"
+    
+    [resources.data_dir]
 
     [resources.permissions]
     # Configure access permissions for SSOwat
