@@ -73,6 +73,7 @@ else
     ynh_safe_rm /var/www/jellystat
 fi
 ynh_safe_rm /var/log/jellystat
+ynh_safe_rm $data_dir
 #=================================================
 # REMOVE SERVICE IN YUNOHOST
 #=================================================
