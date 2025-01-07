@@ -105,7 +105,8 @@ yunohost service add $app --log="/var/log/$app/$app.log"
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start" --wait_until="Starting Jellystat version"
+# Start a systemd service
+ynh_systemctl --service="$app" --action="start" --log_path="systemd" --timeout=30
 
 #=================================================
 # END OF SCRIPT
