@@ -74,7 +74,9 @@ sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.
 sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
 
 # Set up backupfolder according to source /classes/backup.js file
-mkdir -p $install_dir/backend/backup-data
+mkdir -p "$install_dir/backend/backup-data"
+mkdir -p "$data_dir"
+mkdir -p "$backup_dir"
 
 #=================================================
 # INSTALL NPM DEPENDENCIES AND BUILD
@@ -109,11 +111,14 @@ chmod 600 "$install_dir/.env"
 chown "$app:$app" "$install_dir/.env"
 
 # Set permissions for the entire install directory
-chown -R $app:$app "$install_dir"
+chown -R "$app:$app" "$install_dir"
 
 # Adjust permissions for web-accessible directories
-chown -R $app:www-data "$install_dir/backend"
-chown -R $app:www-data "$install_dir/dist"
+chown -R "$app:www-data" "$install_dir/backend"
+chown -R "$app:www-data" "$install_dir/dist"
+
+# Adjust permissions for data
+chown -R "$app:$app" "$data_dir"
 
 #=================================================
 # SET UP SYSTEMD SERVICE
