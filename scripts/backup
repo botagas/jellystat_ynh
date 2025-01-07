@@ -43,8 +43,8 @@ if [ ! -d "$backup_dir" ]; then
 fi
 
 # Backup PostgreSQL database
-sudo -u postgres pg_dump --dbname="$postgres_db" > "$backup_dir/db.sql"
-BACKUP_CORE_ONLY=0 ynh_backup "$backup_dir/db.sql"
+ynh_psql_dump_db "$postgres_db" > db.sql
+BACKUP_CORE_ONLY=0 ynh_backup db.sql
 
 #=================================================
 # END OF SCRIPT
