@@ -26,12 +26,12 @@ chmod 600 "$install_dir/.env"
 chown "$app:$app" "$data_dir"
 
 # Set permissions for the entire install directory
-chown -R $app:$app "$install_dir"
+chown -R "$app:$app" "$install_dir"
 
 # Adjust permissions for web-accessible directories
-chown -R $app:www-data "$install_dir/backend"
-chown -R $app:$app "$install_dir/backend/backup-data
-chown -R $app:www-data "$install_dir/dist"
+chown -R "$app:www-data" "$install_dir/backend"
+chown -R "$app:$app" "$install_dir/backend/backup-data"
+chown -R "$app:www-data" "$install_dir/dist"
 
 #=================================================
 # RESTORE SYSTEMD SERVICE
