@@ -62,6 +62,9 @@ ynh_print_info "Restoring the PostgreSQL database..."
 if [ -f "$backup_dir/db.sql" ]; then
     # Drop the existing database if it exists
     sudo -u postgres psql -c "DROP DATABASE IF EXISTS $postgres_db;"
+    
+    # Recreate the user
+    sudo -u postgres psql -c "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
 
     # Recreate the database
     sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
