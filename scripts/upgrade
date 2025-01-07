@@ -70,6 +70,23 @@ cd "$install_dir"
 npm install
 npm run build
 
+#=================================================
+# CONFIGURE ENVIRONMENT VARIABLES
+#=================================================
+
+ynh_script_progression "Configuring environment variables..." 
+cat <<EOL > "$install_dir/.env"
+POSTGRES_USER=$postgres_user
+POSTGRES_PASSWORD=$postgres_password
+POSTGRES_IP=127.0.0.1
+POSTGRES_PORT=5432
+POSTGRES_DB=$postgres_db
+JS_USER=$js_user
+JS_PASSWORD=$js_password
+JWT_SECRET=$jwt_secret
+PORT=$app_port
+EOL
+
 # Set permissions for the entire install directory
 chown -R "$app:$app" "$install_dir"
 
