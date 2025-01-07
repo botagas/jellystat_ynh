@@ -30,13 +30,6 @@ ynh_app_setting_set --key=postgres_user --value="$postgres_user"
 ynh_app_setting_set --key=postgres_password --value="$postgres_password"
 ynh_app_setting_set --key=postgres_db --value="$postgres_db"
 
-# Other settings
-app=$YNH_APP_INSTANCE_NAME
-install_dir="/var/www/$app"
-domain=$YNH_APP_ARG_DOMAIN
-app_port=$(ynh_find_port --unused-only)
-jwt_secret=$(ynh_string_random)
-
 # Save app settings
 ynh_app_setting_set --key=app_port --value="$app_port"
 ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
