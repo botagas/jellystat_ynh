@@ -48,12 +48,14 @@ ynh_nodejs_remove
 ynh_script_progression "Removing PostgreSQL database..."
 
 # Drop the database and user
-if sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw "$postgres_db"; then
-    sudo -u postgres psql -c "DROP DATABASE $postgres_db;"
-fi
-if sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname='$postgres_user'" | grep -q 1; then
-    sudo -u postgres psql -c "DROP USER $postgres_user;"
-fi
+# sudo -u postgres psql -c "DROP DATABASE $postgres_db;"
+# sudo -u postgres psql -c "DROP USER $postgres_user;"
+
+# Drop the user first
+ynh_psql_db_shell postgres <<< "DROP ROLE IF EXISTS $postgres_user;"
+
+# Then drop the database
+ynh_psql_db_shell postgres <<< "DROP DATABASE IF EXISTS $postgres_db;"
 
 #=================================================
 # REMOVE VARIOUS FILES
