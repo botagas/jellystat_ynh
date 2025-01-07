@@ -44,11 +44,14 @@ ynh_backup "/var/log/$app/"
 ynh_print_info "Backing up the PostgreSQL database..."
 
 # Ensure the backup directory exists
-mkdir -p "$backup_dir"
+if [ ! -d "$backup_dir" ]; then
+    mkdir -p "$backup_dir"
+    chown $app:$app "$backup_dir"
+fi
 
 # Backup PostgreSQL database
 sudo -u postgres pg_dump --dbname="$postgres_db" > "$backup_dir/db.sql"
-ynh_backup "$backup_dir/db.sql"
+BACKUP_CORE_ONLY=0 ynh_backup "$backup_dir/db.sql"
 
 #=================================================
 # END OF SCRIPT
