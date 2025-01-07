@@ -45,9 +45,10 @@ ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 
 ynh_script_progression "Configuring PostgreSQL database..." 
 
-ynh_psql_db_shell $postgres_db <<< "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
-ynh_psql_db_shell $postgres_db <<< "ALTER USER $postgres_user CREATEDB;"
-ynh_psql_db_shell $postgres_db <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
+# Set up PostgreSQL database and user
+sudo -u postgres psql -c "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
+sudo -u postgres psql -c "ALTER USER $postgres_user CREATEDB;"
+sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
 ynh_psql_db_shell $postgres_db <<< "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $postgres_user;"
 
 #=================================================
