@@ -32,6 +32,9 @@ ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 # Backup the systemd service unit
 ynh_backup "/etc/systemd/system/$app.service"
 
+# Backup env tables
+ynh_backup "$install_dir/.env"
+
 #=================================================
 # BACKUP THE POSTGRESQL DATABASE
 #=================================================
