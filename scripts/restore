@@ -23,7 +23,7 @@ ynh_script_progression "Restoring the environment variables file..."
 
 # Set permissions for the .env file, if present
 chmod 600 "$install_dir/.env"
-chown "$app:$app" "$install_dir/.env"
+chown "$app:$app" "$data_dir"
 
 # Set permissions for the entire install directory
 chown -R $app:$app "$install_dir"
@@ -76,9 +76,9 @@ if [ -f db.sql ]; then
     ynh_psql_db_shell <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
 
     # Restore the dump into the newly created database
-    ynh_psql_db_shell $postgres_db < db.sql
+    ynh_psql_db_shell $postgres_db < "$backup_dir/db.sql"
 else
-    ynh_print_warn "No database dump file (db.sql) found in the current directory."
+    ynh_print_warn "No database dump file (db.sql) found in the backup directory."
 fi
 
 
