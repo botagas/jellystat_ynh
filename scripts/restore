@@ -78,7 +78,7 @@ if [ -f db.sql ]; then
     # Restore the dump into the newly created database
     ynh_psql_db_shell $postgres_db < "$backup_dir/db.sql"
 else
-    ynh_print_warn "No database dump file (db.sql) found in the backup directory."
+    ynh_print_info "No database dump file (db.sql) found in the backup directory."
 fi
 
 
