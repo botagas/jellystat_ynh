@@ -33,6 +33,10 @@ ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 
 ynh_script_progression "Configuring PostgreSQL database..." 
 
+# Drop existing db and user if been leftover
+ynh_psql_db_shell postgres <<< "DROP DATABASE IF EXISTS $postgres_db;"
+ynh_psql_db_shell postgres <<< "DROP USER IF EXISTS $postgres_user;"
+
 # Set up PostgreSQL database and user
 ynh_psql_db_shell postgres <<< "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
 ynh_psql_db_shell postgres <<< "ALTER USER $postgres_user CREATEDB;"
