@@ -6,7 +6,16 @@
 app=$YNH_APP_INSTANCE_NAME
 domain=$YNH_APP_ARG_DOMAIN
 app_port=$(ynh_find_port --unused-only)
+
+# PostgreSQL and Jellystat configuration
+postgres_user="jfstat"
+postgres_password=$(ynh_string_random)
+postgres_db="jfstat"
+js_user="admin"
+js_password=$(ynh_string_random)
 jwt_secret=$(ynh_string_random)nodejs_version=20
+
+# Directories
 install_dir="/var/www/$app"
 backup_dir="/home/yunohost.app/$app/backups"
 backup_data="/var/www/$app/backend/backup-data"
