@@ -12,7 +12,6 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Stopping $app's systemd service..."
 
 ynh_systemctl --service=$app --action="stop"
-ynh_app_setting_delete --app=$app --key=backup_core_only
 
 #=================================================
 # INSTALL DEPENDENCIES
