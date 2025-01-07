@@ -26,7 +26,7 @@ Adapted for usage within Yunohost. Might behave even weirder.
 - Jellyfin Statistics Plugin Integration
 
 
-**Shipped version:** 1.00~ynh1
+**Shipped version:** 1.1.2~ynh1
 
 **Demo:** https://demo.example.com
 
@@ -46,6 +46,7 @@ Adapted for usage within Yunohost. Might behave even weirder.
     * SSO and LDAP are not configured and may not work
     * is not intended to be exposed to the public internet
     * uses deprecated dependencies because of the source code
+    * username and password are hardcoded for now and will not persist upon upgrade
 
 * Other infos that people should be aware of, such as:
     * username and password are created and provided to the user post install
