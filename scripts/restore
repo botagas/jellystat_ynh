@@ -63,11 +63,25 @@ ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 #=================================================
 ynh_script_progression "Restoring the PostgreSQL database..."
 
-if ynh_restore --source_path="$backup_dir/pgsql/$app.sql"; then
-    sudo -u postgres psql -c "DROP DATABASE IF EXISTS $postgres_db;"
-    sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
-    sudo -u postgres psql "$postgres_db" < "$backup_dir/pgsql/$app.sql"
+#=================================================
+# RESTORE DATABASE
+#=================================================
+ynh_print_info "Restoring the PostgreSQL database..."
+
+# Verify if the database dump exists in the backup directory
+if [ -f db.sql ]; then
+    # Drop the existing database if it exists
+    ynh_psql_db_shell <<< "DROP DATABASE IF EXISTS $postgres_db;"
+
+    # Recreate the database
+    ynh_psql_db_shell <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
+
+    # Restore the dump into the newly created database
+    ynh_psql_db_shell $postgres_db < db.sql
+else
+    ynh_print_warn "No database dump file (db.sql) found in the current directory."
 fi
+
 
 #=================================================
 # REINSTALL DEPENDENCIES
