@@ -13,15 +13,8 @@ source /usr/share/yunohost/helpers
 
 ynh_app_setting_set --app=$app --key=do_not_backup_data --value=0
 
-# PostgreSQL configuration matching Jellystat defaults
-postgres_user="jfstat"
-postgres_password=$(ynh_string_random)
-postgres_db="jfstat"
-
 # Save the credentials in the app settings for reference
 # Define default admin username and generate a secure password
-js_user="admin"
-js_password=$(ynh_string_random)
 ynh_app_setting_set --key=js_user --value="$js_user"
 ynh_app_setting_set --key=js_password --value="$js_password"
 
