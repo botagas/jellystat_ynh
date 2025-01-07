@@ -42,15 +42,6 @@ ynh_restore "/etc/systemd/system/$app.service"
 systemctl enable "$app.service" --quiet
 
 #=================================================
-# RESTORE LOGROTATE CONFIGURATION
-#=================================================
-ynh_script_progression "Restoring the logrotate configuration..."
-
-mkdir -p "/var/log/$app"
-chown "$app:$app" "/var/log/$app"
-ynh_restore "/etc/logrotate.d/$app"
-
-#=================================================
 # RESTORE NGINX CONFIGURATION
 #=================================================
 ynh_script_progression "Restoring the NGINX configuration..."
@@ -94,7 +85,7 @@ ynh_nodejs_install
 #=================================================
 ynh_script_progression "Adding service in YunoHost..."
 
-yunohost service add $app --log="/var/log/$app/$app.log"
+yunohost service add $app
 
 #=================================================
 # RELOAD AND START SERVICES
