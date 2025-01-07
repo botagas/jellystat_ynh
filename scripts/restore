@@ -61,10 +61,10 @@ ynh_print_info "Restoring the PostgreSQL database..."
 # Verify if the database dump exists in the backup directory
 if [ -f "$backup_dir/db.sql" ]; then
     # Drop the existing database if it exists
-    ynh_psql_db_shell <<< "DROP DATABASE IF EXISTS $postgres_db;"
+    ynh_psql_db_shell $postgres_db <<< "DROP DATABASE IF EXISTS $postgres_db;"
 
     # Recreate the database
-    ynh_psql_db_shell <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
+    ynh_psql_db_shell $postgres_db <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
 
     # Restore the dump into the newly created database
     ynh_psql_db_shell $postgres_db < "$backup_dir/db.sql"
