@@ -6,6 +6,7 @@
 app=jellystat
 nodejs_version=20
 backup_dir=/home/yunohost.app/$app/backups
+backup_data=/var/www/$app/backup-data
 #=================================================
 # PERSONAL HELPERS
 #=================================================
