@@ -85,7 +85,6 @@ ynh_script_progression "Configuring $app's systemd service..."
 # Create a dedicated systemd config
 ynh_config_add_systemd
 
-
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
