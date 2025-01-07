@@ -5,7 +5,6 @@ packaging_format = 2
 id = "jellystat"
 name = "Jellystat"
 description.en = "A statistics dashboard for Jellyfin servers."
-description.fr = "Un tableau de bord de statistiques pour les serveurs Jellyfin."
 
 version = "1.1.2~ynh1"
 
@@ -22,8 +21,8 @@ yunohost = ">= 11.2"
 helpers_version = "2.1"
 architectures = ["arm64", "amd64"]
 multi_instance = false
-ldap = false
-sso = false
+ldap = "not_relevant"
+sso = "not_relevant"
 disk = "50M"
 ram.build = "200M"
 ram.runtime = "100M"
