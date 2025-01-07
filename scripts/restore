@@ -61,7 +61,7 @@ ynh_print_info "Restoring the PostgreSQL database..."
 # Verify if the database dump exists in the backup directory
 if [ -f "$backup_dir/db.sql" ]; then
     # Drop the existing database if it exists
-    ynh_psql_db_shell $postgres_db <<< "DROP DATABASE IF EXISTS $postgres_db;"
+    sudo -u postgres psql -c "DROP DATABASE IF EXISTS $postgres_db;"
 
     # Recreate the database
     sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
