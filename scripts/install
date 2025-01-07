@@ -73,6 +73,10 @@ sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.
 # Update server.js to use the allocated port
 sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
 
+# Set up backupfolder according to source /classes/backup.js file
+mkdir -p $install_dir$/backup-data
+mkdir -p $install_dir$/backend/backup-data
+
 #=================================================
 # INSTALL NPM DEPENDENCIES AND BUILD
 #=================================================
