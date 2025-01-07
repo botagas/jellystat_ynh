@@ -3,7 +3,6 @@
 #=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -12,66 +11,104 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemctl --service="$app" --action="stop"
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression "Ensuring downward compatibility..."
-
-# Example: If a setting was not defined in earlier versions, set it up
-# Uncomment if necessary
-# ynh_app_setting_set_default --key=some_setting --value="default_value"
-
-#=================================================
-# UPGRADE SOURCE FILES
-#=================================================
-ynh_script_progression "Upgrading source files..."
-
-# Replace the installation directory while keeping the .env file intact
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env"
-
-# Reapply ownership and permissions
-chown -R "$app:www-data" "$install_dir"
+ynh_systemctl --service=$app --action="stop"
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
-ynh_nodejs_install
-npm install --prefix "$install_dir"
+# Check if the current Node.js version matches the required version
+current_nodejs_version=$(ynh_app_setting_get --app=$app --key=nodejs_version)
+required_nodejs_version=$nodejs_version  # From _common.sh
+
+if [ "$current_nodejs_version" != "$required_nodejs_version" ]; then
+    ynh_script_progression "Upgrading Node.js from version $current_nodejs_version to $required_nodejs_version..."
+
+    # Remove the old Node.js version
+    ynh_nodejs_remove
+
+    # Explicitly redefine nodejs_version for the new installation
+    export nodejs_version=$required_nodejs_version  # Ensure the correct version is used
+    ynh_nodejs_install
+
+    # Save the new Node.js version in app settings
+    ynh_app_setting_set --app=$app --key=nodejs_version --value=$required_nodejs_version
+else
+    ynh_script_progression "Node.js is already at version $required_nodejs_version."
+fi
 
 #=================================================
-# REAPPLY SYSTEM CONFIGURATIONS
+# DOWNLOAD, CHECK AND DEPLOY NEW SOURCES
 #=================================================
-ynh_script_progression "Reapplying system configurations..."
+ynh_script_progression "Setting up source files..."
 
-# Reconfigure NGINX
-ynh_add_nginx_config
-
-# Reconfigure systemd
-ynh_add_systemd
-
-# Reconfigure logrotate
-ynh_add_logrotate
-
-# Ensure log directory exists
-mkdir -p "/var/log/$app"
-chown "$app:$app" "/var/log/$app"
+# Download, check integrity, uncompress, and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="config"
 
 #=================================================
-# RESTART SYSTEMD SERVICE
+# EDIT CRUCIAL FILES
 #=================================================
-ynh_script_progression "Restarting $app's systemd service..."
+ynh_script_progression "Updating critical files..."
 
-ynh_systemctl --service="$app" --action="start"
+# Update swagger.json to set the host as the domain
+sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
 
-# Reload NGINX
-ynh_systemctl --service=nginx --action=reload
+# Update create_database.js for PostgreSQL compatibility
+sed -i "s|'CREATE DATABASE ' \+ _POSTGRES_DATABASE|'CREATE DATABASE IF NOT EXISTS ${postgres_db};'|" "$install_dir/backend/create_database.js"
+
+# Update server.js to use the allocated port
+sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
+
+#=================================================
+# BUILD THE APP
+#=================================================
+ynh_script_progression "Building app... This may take some time"
+
+cd "$install_dir"
+npm install
+npm run build
+
+# Set permissions for the entire install directory
+chown -R $app:$app "$install_dir"
+
+# Adjust permissions for web-accessible directories
+chown -R $app:www-data "$install_dir/backend"
+chown -R $app:www-data "$install_dir/dist"
+
+#=================================================
+# CONFIGURE SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Configuring $app's systemd service..."
+
+# Create a dedicated systemd config
+ynh_config_add_systemd
+
+#=================================================
+# LOGROTATE CONFIGURATION
+#=================================================
+ynh_script_progression "Configuring logrotate to manage application logfiles"
+
+# Use logrotate to manage application logfile(s)
+ynh_config_add_logrotate
+touch /var/log/$app/$app.log
+
+#=================================================
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression "Integrating service in YunoHost..."
+
+yunohost service add $app --log="/var/log/$app/$app.log"
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Starting $app's systemd service..."
+
+ynh_systemctl --service=$app --action="start" --wait_until="Starting Jellystat version"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression "Upgrade of $app completed"
+ynh_script_progression "Upgrade of $app completed successfully!"
