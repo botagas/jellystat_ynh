@@ -7,7 +7,7 @@ name = "Jellystat"
 description.en = "A statistics dashboard for Jellyfin servers."
 description.fr = "Un tableau de bord de statistiques pour les serveurs Jellyfin."
 
-version = "1.01~ynh1"
+version = "1.02~ynh1"
 
 maintainers = ["botagas"]
 
