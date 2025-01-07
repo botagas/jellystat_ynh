@@ -10,6 +10,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 # INITIALIZE SETTINGS AND VARIABLES
 #=================================================
+app=$YNH_APP_INSTANCE_NAME
+domain=$YNH_APP_ARG_DOMAIN
 app_port=$(ynh_find_port --unused-only)
 postgres_user="jfstat"
 postgres_password=$(ynh_string_random)
