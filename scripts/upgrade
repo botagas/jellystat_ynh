@@ -6,10 +6,6 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
-# OPTIONAL WAY IN CASE OF MANUAL USER CHANGES: Retrieve database and user values from the .env file
-# postgres_db=$(grep POSTGRES_DB "$install_dir/.env" | cut -d '=' -f 2)
-# postgres_user=$(grep POSTGRES_USER "$install_dir/.env" | cut -d '=' -f 2)
-
 # Retrieve database and user values from app setting
 postgres_db=$(ynh_app_setting_get --app=$app --key=postgres_db)
 postgres_user=$(ynh_app_setting_get --app=$app --key=postgres_user)
