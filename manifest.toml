@@ -39,7 +39,6 @@ ram.runtime = "100M"
     default = "/"
 
     [install.password]
-    ask.en = "Set the admin password for the app. If not given, a random password will be generated"
     type = "password"
     optional = true
 
