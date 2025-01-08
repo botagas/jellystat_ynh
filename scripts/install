@@ -149,7 +149,22 @@ ynh_script_progression "Starting $app's systemd service..."
 # Start a systemd service
 ynh_systemctl --service="$app" --action="start" --log_path="systemd" --timeout=30
 
-# Pre-create user in the app and skip signup
+# Wait for the service to become available
+ynh_print_info "Waiting for jellystat to start..."
+for i in {1..30}; do
+    if curl -s http://127.0.0.1:3000/ >/dev/null; then
+        ynh_print_info "jellystat is up and running!"
+        break
+    fi
+    sleep 1
+    if [ $i -eq 30 ]; then
+        ynh_print_warn "jellystat failed to start within 30 seconds."
+        ynh_exit_properly
+    fi
+done
+
+# Create the admin user
+ynh_print_info "Creating admin user..."
 curl -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}'
 
 # Debug the advanced state
