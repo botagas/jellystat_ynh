@@ -16,10 +16,15 @@ ynh_app_setting_set --app=$app --key=do_not_backup_data --value=0
 # Save the credentials in the app settings for reference
 # Define default admin username and generate a secure password
 ynh_app_setting_set --key=js_user --value="$js_user"
+
+js_password=$YNH_APP_ARG_PASSWORD
 ynh_app_setting_set --key=js_password --value="$js_password"
 
 # Save PostgreSQL credentials as app settings for potential reuse
 ynh_app_setting_set --key=postgres_user --value="$postgres_user"
+
+# Generate and store db password
+postgres_password=$(ynh_string_random --length=30)
 ynh_app_setting_set --key=postgres_password --value="$postgres_password"
 ynh_app_setting_set --key=postgres_db --value="$postgres_db"
 
