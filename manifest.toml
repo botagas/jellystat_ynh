@@ -5,6 +5,7 @@ packaging_format = 2
 id = "jellystat"
 name = "Jellystat"
 description.en = "A statistics dashboard for Jellyfin servers."
+
 version = "1.1.2~ynh1"
 
 maintainers = ["botagas"]
