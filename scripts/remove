@@ -67,12 +67,7 @@ ynh_apt_remove_dependencies
 
 # Remove the app's configuration and other specific files
 install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
-if [ -n "$install_dir" ]; then
-    ynh_safe_rm "$install_dir"
-else
-    echo "Warning: install_dir not found in app settings, using default path."
-    ynh_safe_rm "/var/www/jellystat"
-fi
+ynh_safe_rm "$install_dir"
 ynh_safe_rm "$data_dir"
 
 #=================================================
