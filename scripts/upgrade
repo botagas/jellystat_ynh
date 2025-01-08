@@ -103,7 +103,7 @@ ynh_script_progression "Adding service in YunoHost..."
 
 sudo -u postgres psql -c "ALTER USER $postgres_user CREATEDB;"
 
-yunohost service add "$app" --description="Jellystat Service" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Jellystat Service"
 
 #=================================================
 # START SYSTEMD SERVICE
