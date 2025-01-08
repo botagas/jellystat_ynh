@@ -6,9 +6,6 @@
 
 app=jellystat
 nodejs_version=20
-postgres_user="jfstat"
-postgres_db="jfstat"
-js_user="admin"
 
 # Directories
 install_dir="/var/www/$app"
