@@ -16,6 +16,8 @@ ynh_app_setting_set --app=$app --key=do_not_backup_data --value=0
 # Save the credentials in the app settings for reference
 # Define default admin username and generate a secure password
 js_user=$adminuser
+# Debugging the user choice
+ynh_print_warn "Using the following user: $adminuser"
 ynh_app_setting_set --key=js_user --value="$js_user"
 
 # Check if a password was supplied via the argument
