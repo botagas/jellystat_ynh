@@ -65,6 +65,7 @@ if [ -f "$backup_data/db.sql" ]; then
 
     # Recreate the user
     ynh_psql_db_shell postgres <<< "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
+    ynh_print_info "Providing sufficient rights to db user to create db if none is present..."
     ynh_psql_db_shell postgres <<< "ALTER USER $postgres_user CREATEDB;"
 
     # Recreate the database
@@ -75,7 +76,8 @@ if [ -f "$backup_data/db.sql" ]; then
     ynh_psql_db_shell $postgres_db < "$backup_data/db.sql"
 else
     ynh_print_warn "No db dump file found in the backup directory. Was the DB not backed up previously?"
-    ynh_print_info "Proceeding to restore without db file..."
+    ynh_print_warn "Due to missing db file, the db will have been created anew..."
+    ynh_print_info "Proceeding with restoration without db file..."
 fi
 
 
