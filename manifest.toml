@@ -17,7 +17,7 @@ code = "https://github.com/CyferShepard/Jellystat"
 [integration]
 yunohost = ">= 11.2"
 helpers_version = "2.1"
-architectures = ["arm64", "amd64"]
+architectures = "all"
 multi_instance = false
 ldap = false
 sso = false
