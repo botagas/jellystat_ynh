@@ -6,6 +6,10 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
+# Retrieve database and user values from app setting
+postgres_db=$(ynh_app_setting_get --app=$app --key=postgres_db)
+postgres_user=$(ynh_app_setting_get --app=$app --key=postgres_user)
+
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
@@ -53,13 +57,13 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env"
 ynh_script_progression "Updating critical files..."
 
 # Update swagger.json to set the host as the domain
-sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
+ynh_replace --match="\"host\": \"\"" --replace="\"host\": \"$domain\"" --file="$install_dir/backend/swagger.json"
 
 # Update create_database.js for PostgreSQL compatibility
-sed -i "s|'CREATE DATABASE ' \+ _POSTGRES_DATABASE|'CREATE DATABASE IF NOT EXISTS ${postgres_db};'|" "$install_dir/backend/create_database.js"
+ynh_replace --match="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace="'CREATE DATABASE IF NOT EXISTS ${postgres_db};'" --file="$install_dir/backend/create_database.js"
 
 # Update server.js to use the allocated port
-sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
+ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT || $port;" --file="$install_dir/backend/server.js"
 
 #=================================================
 # BUILD THE APP
@@ -100,7 +104,7 @@ ynh_script_progression "Adding service in YunoHost..."
 
 sudo -u postgres psql -c "ALTER USER $postgres_user CREATEDB;"
 
-yunohost service add "$app" --description="Jellystat Service" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Jellystat Service"
 
 #=================================================
 # START SYSTEMD SERVICE

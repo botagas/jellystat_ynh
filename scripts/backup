@@ -37,9 +37,15 @@ ynh_backup "/etc/systemd/system/$app.service"
 #=================================================
 ynh_print_info "Backing up the PostgreSQL database..."
 
-# Backup PostgreSQL database
-ynh_psql_dump_db $postgres_db > "$backup_data/db.sql"
-ynh_backup "$backup_data/db.sql"
+if [ -f "$backup_data/db.sql" ]; then
+    # Dump and backup db if present
+    ynh_psql_dump_db $postgres_db > "$backup_data/db.sql"
+    ynh_backup "$backup_data/db.sql"
+else
+    ynh_print_warn "No db dump file found in the backup directory. Was the DB not backed up previously?"
+    ynh_print_warn "Due to missing db file, the backup will not contain db data..."
+    ynh_print_info "Proceeding with backup without db file..."
+fi
 
 #=================================================
 # END OF SCRIPT

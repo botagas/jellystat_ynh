@@ -15,16 +15,37 @@ ynh_app_setting_set --app=$app --key=do_not_backup_data --value=0
 
 # Save the credentials in the app settings for reference
 # Define default admin username and generate a secure password
+js_user=$adminuser
+# Debugging the user choice
+ynh_print_warn "Using the following user: $adminuser"
 ynh_app_setting_set --key=js_user --value="$js_user"
+
+# Check if a password was supplied via the argument
+if [[ -n "$YNH_APP_ARG_PASSWORD" ]]; then
+    js_password="$YNH_APP_ARG_PASSWORD"
+else
+    # Generate a random password if none was supplied
+    js_password=$(ynh_string_random)
+fi
+
+# Save the password
 ynh_app_setting_set --key=js_password --value="$js_password"
 
-# Save PostgreSQL credentials as app settings for potential reuse
+# Save PostgreSQL credentials
+postgres_user="jfstat"
 ynh_app_setting_set --key=postgres_user --value="$postgres_user"
-ynh_app_setting_set --key=postgres_password --value="$postgres_password"
+postgres_db="jfstat"
 ynh_app_setting_set --key=postgres_db --value="$postgres_db"
 
-# Save app settings
-ynh_app_setting_set --key=app_port --value="$app_port"
+# Generate and store db password
+postgres_password=$(ynh_string_random)
+ynh_app_setting_set --key=postgres_password --value="$postgres_password"
+
+# Save app port
+ynh_app_setting_set --key=app_port --value="$port"
+
+# Generate secret token
+jwt_secret=$(ynh_string_random)
 ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 
 #=================================================
@@ -51,13 +72,13 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 
 # Update create_database.js to use "IF NOT EXISTS"
-sed -i "s|'CREATE DATABASE ' \\+ _POSTGRES_DATABASE|'CREATE DATABASE IF NOT EXISTS ${postgres_db};'|" "$install_dir/backend/create_database.js"
+ynh_replace --match="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace="'CREATE DATABASE IF NOT EXISTS ${postgres_db};'" --file="$install_dir/backend/create_database.js"
 
 # Update swagger.json to set host as the domain
-sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
+ynh_replace --match="\"host\": \"\"" --replace="\"host\": \"$domain\"" --file="$install_dir/backend/swagger.json"
 
 # Update server.js to use the allocated port
-sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
+ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT || $port;" --file="$install_dir/backend/server.js"
 
 # Set up backupfolder according to source /classes/backup.js file
 mkdir -p "$data_dir"
@@ -89,7 +110,7 @@ POSTGRES_DB=$postgres_db
 JS_USER=$js_user
 JS_PASSWORD=$js_password
 JWT_SECRET=$jwt_secret
-PORT=$app_port
+PORT=$port
 EOL
 
 # Set permissions for the entire install directory
@@ -113,7 +134,7 @@ chown -R "$app:$app" "$data_dir"
 ynh_script_progression "Setting up systemd service..." 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="Jellystat Service" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Jellystat Service"
 #=================================================
 # SET UP NGINX
 #=================================================
@@ -128,6 +149,27 @@ ynh_script_progression "Starting $app's systemd service..."
 # Start a systemd service
 ynh_systemctl --service="$app" --action="start" --log_path="systemd" --timeout=30
 
+# Wait for the service to become available
+ynh_print_info "Waiting for $app to start..."
+for i in {1..30}; do
+    if curl -s http://127.0.0.1:$port/ >/dev/null; then
+        ynh_print_info "$app is up and running!"
+        break
+    fi
+    sleep 1
+    if [ $i -eq 30 ]; then
+        ynh_print_warn "$app failed to start within 30 seconds."
+        ynh_exit_properly
+    fi
+done
+
+# Create the admin user
+ynh_print_info "Creating admin user..."
+curl -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}'
+
+# Debug the advanced state
+setup_state_response=$(curl -s -X GET http://127.0.0.1:$port/auth/isConfigured -H "Content-Type: application/json")
+ynh_print_warn "Setup state response: $setup_state_response"
 #=================================================
 # FINISH INSTALLATION
 #=================================================

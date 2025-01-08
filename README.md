@@ -28,7 +28,6 @@ Adapted for usage within Yunohost. Might behave even weirder.
 
 **Shipped version:** 1.1.2~ynh1
 
-**Demo:** https://demo.example.com
 
 ## Screenshots
 
@@ -41,12 +40,11 @@ Adapted for usage within Yunohost. Might behave even weirder.
 ## Disclaimers / important information
 
 * Any known limitations, constrains or stuff not working, such as (but not limited to):
-    * requires a dedicated domain
+    * requires a dedicated (sub)domain
     * may not work on all architecture types (not tested)
     * SSO and LDAP are not configured and may not work
     * is not intended to be exposed to the public internet
     * uses deprecated dependencies because of the source code
-    * username and password are hardcoded for now and will not persist upon upgrade
 
 * Other infos that people should be aware of, such as:
     * username and password are created and provided to the user post install
@@ -56,8 +54,6 @@ Adapted for usage within Yunohost. Might behave even weirder.
 
 ## Documentation and resources
 
-* Official user documentation: <https://github.com/CyferShepard/Jellystat>
-* Official admin documentation: <https://github.com/CyferShepard/Jellystat>
 * Official code repository: <https://github.com/CyferShepard/Jellystat>
 * YunoHost package repository: <https://github.com/botagas/jellystat_ynh>
 * Report a bug: <https://github.com/botagas/jellystat_ynh/issues>

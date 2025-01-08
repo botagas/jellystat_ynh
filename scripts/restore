@@ -16,6 +16,10 @@ ynh_script_progression "Restoring the app main directory..."
 ynh_restore "$install_dir"
 ynh_restore "$data_dir"
 
+# Retrieve database and user values from the app setting
+postgres_db=$(ynh_app_setting_get --app=$app --key=postgres_db)
+postgres_user=$(ynh_app_setting_get --app=$app --key=postgres_user)
+
 #=================================================
 # RESTORE ENVIRONMENT VARIABLES
 #=================================================
@@ -54,24 +58,28 @@ ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 #=================================================
 ynh_print_info "Restoring the PostgreSQL database..."
 
+# Drop the existing database and user if they exist
+ynh_psql_db_shell postgres <<< "DROP DATABASE IF EXISTS $postgres_db;"
+ynh_psql_db_shell postgres <<< "DROP USER IF EXISTS $postgres_user;"
+
+# Recreate the user
+ynh_psql_db_shell postgres <<< "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
+ynh_print_info "Providing sufficient rights to db user to create db if none is present..."
+ynh_psql_db_shell postgres <<< "ALTER USER $postgres_user CREATEDB;"
+
+# Recreate the database
+ynh_psql_db_shell postgres <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
+ynh_psql_db_shell postgres <<< "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $postgres_user;"
+
 # Verify if the database dump exists in the backup directory
 if [ -f "$backup_data/db.sql" ]; then
-    # Drop the existing database and user if they exist
-    sudo -u postgres psql -c "DROP DATABASE IF EXISTS $postgres_db;"
-    sudo -u postgres psql -c "DROP USER IF EXISTS $postgres_user;"
-
-    # Recreate the user
-    sudo -u postgres psql -c "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
-    sudo -u postgres psql -c "ALTER USER $postgres_user CREATEDB;"
-
-    # Recreate the database
-    sudo -u postgres psql -c "CREATE DATABASE $postgres_db OWNER $postgres_user;"
-    ynh_psql_db_shell $postgres_db <<< "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $postgres_user;"
 
     # Restore the dump into the newly created database
     ynh_psql_db_shell $postgres_db < "$backup_data/db.sql"
 else
-    ynh_print_info "No database dump file found in the backup directory..."
+    ynh_print_warn "No db dump file found in the backup directory. Was the DB not backed up previously?"
+    ynh_print_warn "Due to missing db file, the db will have been created anew..."
+    ynh_print_info "Proceeding with restoration without db file..."
 fi
 
 
@@ -87,7 +95,7 @@ ynh_nodejs_install
 #=================================================
 ynh_script_progression "Adding service in YunoHost..."
 
-yunohost service add $app
+yunohost service add "$app" --description="Jellystat Service"
 
 #=================================================
 # RELOAD AND START SERVICES
