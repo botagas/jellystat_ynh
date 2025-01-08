@@ -70,7 +70,6 @@ else
     echo "Warning: install_dir not found in app settings, using default path."
     ynh_safe_rm "/var/www/jellystat"
 fi
-ynh_safe_rm "/var/log/jellystat"
 ynh_safe_rm "$data_dir"
 
 #=================================================
