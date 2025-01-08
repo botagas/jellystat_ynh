@@ -87,7 +87,7 @@ ynh_nodejs_install
 #=================================================
 ynh_script_progression "Adding service in YunoHost..."
 
-yunohost service add $app
+yunohost service add "$app" --description="Jellystat Service" --log="/var/log/$app/$app.log"
 
 #=================================================
 # RELOAD AND START SERVICES
