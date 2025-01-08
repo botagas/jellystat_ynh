@@ -8,6 +8,9 @@
 source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
+postgres_db=$(ynh_app_setting_get --app=$app --key=postgres_db)
+postgres_user=$(ynh_app_setting_get --app=$app --key=postgres_user)
+
 #=================================================
 # RESTORE THE APP MAIN DIRECTORY
 #=================================================
