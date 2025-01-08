@@ -56,8 +56,6 @@ Adapted for usage within Yunohost. Might behave even weirder.
 
 ## Documentation and resources
 
-* Official user documentation: <https://github.com/CyferShepard/Jellystat>
-* Official admin documentation: <https://github.com/CyferShepard/Jellystat>
 * Official code repository: <https://github.com/CyferShepard/Jellystat>
 * YunoHost package repository: <https://github.com/botagas/jellystat_ynh>
 * Report a bug: <https://github.com/botagas/jellystat_ynh/issues>
