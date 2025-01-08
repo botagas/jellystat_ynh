@@ -62,20 +62,21 @@ ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 #=================================================
 ynh_print_info "Restoring the PostgreSQL database..."
 
+# Drop the existing database and user if they exist
+ynh_psql_db_shell postgres <<< "DROP DATABASE IF EXISTS $postgres_db;"
+ynh_psql_db_shell postgres <<< "DROP USER IF EXISTS $postgres_user;"
+
+# Recreate the user
+ynh_psql_db_shell postgres <<< "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
+ynh_print_info "Providing sufficient rights to db user to create db if none is present..."
+ynh_psql_db_shell postgres <<< "ALTER USER $postgres_user CREATEDB;"
+
+# Recreate the database
+ynh_psql_db_shell postgres <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
+ynh_psql_db_shell postgres <<< "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $postgres_user;"
+
 # Verify if the database dump exists in the backup directory
 if [ -f "$backup_data/db.sql" ]; then
-    # Drop the existing database and user if they exist
-    ynh_psql_db_shell postgres <<< "DROP DATABASE IF EXISTS $postgres_db;"
-    ynh_psql_db_shell postgres <<< "DROP USER IF EXISTS $postgres_user;"
-
-    # Recreate the user
-    ynh_psql_db_shell postgres <<< "CREATE USER $postgres_user WITH PASSWORD '$postgres_password';"
-    ynh_print_info "Providing sufficient rights to db user to create db if none is present..."
-    ynh_psql_db_shell postgres <<< "ALTER USER $postgres_user CREATEDB;"
-
-    # Recreate the database
-    ynh_psql_db_shell postgres <<< "CREATE DATABASE $postgres_db OWNER $postgres_user;"
-    ynh_psql_db_shell postgres <<< "GRANT ALL PRIVILEGES ON DATABASE $postgres_db TO $postgres_user;"
 
     # Restore the dump into the newly created database
     ynh_psql_db_shell $postgres_db < "$backup_data/db.sql"
