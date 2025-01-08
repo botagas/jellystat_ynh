@@ -53,13 +53,13 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env"
 ynh_script_progression "Updating critical files..."
 
 # Update swagger.json to set the host as the domain
-sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
+ynh_replace_string --match_string="\"host\": \"\"" --replace_string="\"host\": \"$domain\"" --target_file="$install_dir/backend/swagger.json"
 
 # Update create_database.js for PostgreSQL compatibility
-sed -i "s|'CREATE DATABASE ' \+ _POSTGRES_DATABASE|'CREATE DATABASE IF NOT EXISTS ${postgres_db};'|" "$install_dir/backend/create_database.js"
+ynh_replace_string --match_string="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace_string="'CREATE DATABASE IF NOT EXISTS ${postgres_db};'" --target_file="$install_dir/backend/create_database.js"
 
 # Update server.js to use the allocated port
-sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
+ynh_replace_string --match_string="^const PORT = .*" --replace_string="const PORT = process.env.PORT || $app_port;" --target_file="$install_dir/backend/server.js"
 
 #=================================================
 # BUILD THE APP
