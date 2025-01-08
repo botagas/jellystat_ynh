@@ -59,7 +59,7 @@ ynh_replace_string --match_string="\"host\": \"\"" --replace_string="\"host\": \
 ynh_replace_string --match_string="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace_string="'CREATE DATABASE IF NOT EXISTS ${postgres_db};'" --target_file="$install_dir/backend/create_database.js"
 
 # Update server.js to use the allocated port
-ynh_replace_string --match_string="^const PORT = .*" --replace_string="const PORT = process.env.PORT || $app_port;" --target_file="$install_dir/backend/server.js"
+ynh_replace_string --match_string="^const PORT = .*" --replace_string="const PORT = process.env.PORT || $port;" --target_file="$install_dir/backend/server.js"
 
 #=================================================
 # BUILD THE APP
