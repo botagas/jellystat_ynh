@@ -22,7 +22,7 @@ ynh_restore "$data_dir"
 # Retrieve database and user values from the .env file
 postgres_db=$(grep POSTGRES_DB "$install_dir/.env" | cut -d '=' -f 2)
 postgres_user=$(grep POSTGRES_USER "$install_dir/.env" | cut -d '=' -f 2)
-# Print the retrieved values for debugging
+# Print the retrieved values for debugging, in case updates break the process
 ynh_print_warn "Restoring database with the following details:"
 ynh_print_warn "Database Name: $postgres_db"
 ynh_print_warn "Database User: $postgres_user"
