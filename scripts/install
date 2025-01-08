@@ -15,6 +15,7 @@ ynh_app_setting_set --app=$app --key=do_not_backup_data --value=0
 
 # Save the credentials in the app settings for reference
 # Define default admin username and generate a secure password
+js_user="admin"
 ynh_app_setting_set --key=js_user --value="$js_user"
 
 # Check if a password was supplied via the argument
@@ -29,14 +30,16 @@ fi
 ynh_app_setting_set --key=js_password --value="$js_password"
 
 # Save PostgreSQL credentials
+postgres_user="jfstat"
 ynh_app_setting_set --key=postgres_user --value="$postgres_user"
+postgres_db="jfstat"
+ynh_app_setting_set --key=postgres_db --value="$postgres_db"
 
 # Generate and store db password
 postgres_password=$(ynh_string_random)
 ynh_app_setting_set --key=postgres_password --value="$postgres_password"
-ynh_app_setting_set --key=postgres_db --value="$postgres_db"
 
-# Save app settings
+# Save app port
 ynh_app_setting_set --key=app_port --value="$port"
 
 # Generate secret token
