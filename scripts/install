@@ -24,7 +24,7 @@ ynh_app_setting_set --key=postgres_password --value="$postgres_password"
 ynh_app_setting_set --key=postgres_db --value="$postgres_db"
 
 # Save app settings
-ynh_app_setting_set --key=app_port --value="$app_port"
+ynh_app_setting_set --key=app_port --value="$port"
 ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 
 #=================================================
@@ -57,7 +57,7 @@ ynh_replace_string --match_string="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --
 ynh_replace_string --match_string="\"host\": \"\"" --replace_string="\"host\": \"$domain\"" --target_file="$install_dir/backend/swagger.json"
 
 # Update server.js to use the allocated port
-ynh_replace_string --match_string="^const PORT = .*" --replace_string="const PORT = process.env.PORT || $app_port;" --target_file="$install_dir/backend/server.js"
+ynh_replace_string --match_string="^const PORT = .*" --replace_string="const PORT = process.env.PORT || $port;" --target_file="$install_dir/backend/server.js"
 
 # Set up backupfolder according to source /classes/backup.js file
 mkdir -p "$data_dir"
@@ -89,7 +89,7 @@ POSTGRES_DB=$postgres_db
 JS_USER=$js_user
 JS_PASSWORD=$js_password
 JWT_SECRET=$jwt_secret
-PORT=$app_port
+PORT=$port
 EOL
 
 # Set permissions for the entire install directory
