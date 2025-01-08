@@ -132,7 +132,7 @@ chown -R "$app:$app" "$data_dir"
 ynh_script_progression "Setting up systemd service..." 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="Jellystat Service" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Jellystat Service"
 #=================================================
 # SET UP NGINX
 #=================================================
