@@ -51,13 +51,13 @@ ynh_script_progression "Setting up source files..."
 ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 
 # Update create_database.js to use "IF NOT EXISTS"
-sed -i "s|'CREATE DATABASE ' \\+ _POSTGRES_DATABASE|'CREATE DATABASE IF NOT EXISTS ${postgres_db};'|" "$install_dir/backend/create_database.js"
+ynh_replace_string --match_string="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace_string="'CREATE DATABASE IF NOT EXISTS ${postgres_db};'" --target_file="$install_dir/backend/create_database.js"
 
 # Update swagger.json to set host as the domain
-sed -i "s|\"host\": \"\"|\"host\": \"$domain\"|g" "$install_dir/backend/swagger.json"
+ynh_replace_string --match_string="\"host\": \"\"" --replace_string="\"host\": \"$domain\"" --target_file="$install_dir/backend/swagger.json"
 
 # Update server.js to use the allocated port
-sed -i "s/^const PORT = .*/const PORT = process.env.PORT || $app_port;/" "$install_dir/backend/server.js"
+ynh_replace_string --match_string="^const PORT = .*" --replace_string="const PORT = process.env.PORT || $app_port;" --target_file="$install_dir/backend/server.js"
 
 # Set up backupfolder according to source /classes/backup.js file
 mkdir -p "$data_dir"
