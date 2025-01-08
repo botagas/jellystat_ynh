@@ -33,6 +33,7 @@ test_format = 1.0
     ## NB: you should NOT need this except if you really have a good reason...
 
     args.admin = "package_checker"
+    args.adminuser = "package_checker"
     args.init_admin_permission="package_checker"
     # exclude = ["install.private", "install.multi"]
 
