@@ -63,6 +63,7 @@ ynh_script_progression "Removing various files..."
 
 # Remove APT dependencies
 ynh_script_progression "Removing APT dependencies..."
+ynh_print_warn "This may take a while..."
 ynh_apt_remove_dependencies
 
 # Remove the app's configuration and other specific files
