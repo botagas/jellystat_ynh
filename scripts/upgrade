@@ -98,13 +98,11 @@ ynh_script_progression "Configuring $app's systemd service..."
 ynh_config_add_systemd
 
 #=================================================
-# ADD SERVICE IN YUNOHOST
+# GRANT PERM FOR DB USER
 #=================================================
-ynh_script_progression "Adding service in YunoHost..."
+ynh_script_progression "Grant db permissions for $app..."
 
 sudo -u postgres psql -c "ALTER USER $postgres_user CREATEDB;"
-
-yunohost service add "$app" --description="Jellystat Service"
 
 #=================================================
 # START SYSTEMD SERVICE

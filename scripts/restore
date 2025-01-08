@@ -91,13 +91,6 @@ ynh_script_progression "Reinstalling dependencies..."
 ynh_nodejs_install
 
 #=================================================
-# ADD SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression "Adding service in YunoHost..."
-
-yunohost service add "$app" --description="Jellystat Service"
-
-#=================================================
 # RELOAD AND START SERVICES
 #=================================================
 ynh_script_progression "Reloading and starting services..."
