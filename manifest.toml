@@ -47,6 +47,7 @@ ram.runtime = "100M"
     url = "https://github.com/CyferShepard/Jellystat/archive/refs/tags/1.1.2.tar.gz"
     sha256 = "53c1ac04910af2df5ebd4b0a46ec1fd6c85c7e84986f4b2a53ff9e1d04fe1a57"
     branch = "main"
+    autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
     # Unix system user for the app
