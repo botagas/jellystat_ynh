@@ -149,6 +149,12 @@ ynh_script_progression "Starting $app's systemd service..."
 # Start a systemd service
 ynh_systemctl --service="$app" --action="start" --log_path="systemd" --timeout=30
 
+# Pre-create user in the app and skip signup
+curl -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}'
+
+# Debug the advanced state
+setup_state_response=$(curl -s -X GET http://127.0.0.1:$PORT/auth/isConfigured -H "Content-Type: application/json")
+ynh_print_warn "Setup state response: $setup_state_response"
 #=================================================
 # FINISH INSTALLATION
 #=================================================
