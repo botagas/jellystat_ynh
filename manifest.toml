@@ -13,9 +13,7 @@ maintainers = ["botagas"]
 
 [upstream]
 license = "GPL-3.0-or-later"
-website = "https://github.com/CyferShepard/Jellystat"
-userdoc = "https://github.com/CyferShepard/Jellystat"
-code = "https://github.com/botagas/jellystat_ynh"
+code = "https://github.com/CyferShepard/Jellystat"
 
 [integration]
 yunohost = ">= 11.2"
