@@ -47,7 +47,7 @@ Adapted for usage within Yunohost. Might behave even weirder.
     * uses deprecated dependencies because of the source code
 
 * Other infos that people should be aware of, such as:
-    * username and password are created and provided to the user post install
+    * there is no mechanism for changing username and password post install in the webadmin, but the functionality is present in the app
     * some webUI elements may not be correct at the present time
     * upgrade / removal / installation process is still experimental
     * backups of your instance and data is advised
