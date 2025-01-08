@@ -15,7 +15,7 @@ license = "GPL-3.0-or-later"
 code = "https://github.com/CyferShepard/Jellystat"
 
 [integration]
-yunohost = ">= 12.0.9.2"
+yunohost = ">= 11.2"
 helpers_version = "2.1"
 architectures = ["arm64", "amd64"]
 multi_instance = false
