@@ -94,7 +94,7 @@ ynh_nodejs_install
 ynh_script_progression "Installing and building app dependencies..." 
 cd "$install_dir"
 npm install
-npm run build
+ynh_hide_warnings npm run build
 
 #=================================================
 # CONFIGURE ENVIRONMENT VARIABLES
