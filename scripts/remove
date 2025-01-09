@@ -65,11 +65,6 @@ ynh_script_progression "Removing APT dependencies..."
 ynh_print_warn "This may take a while..."
 ynh_apt_remove_dependencies
 
-# Remove the app's configuration and other specific files
-install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
-ynh_safe_rm "$install_dir"
-ynh_safe_rm "$data_dir"
-
 #=================================================
 # END OF SCRIPT
 #=================================================
