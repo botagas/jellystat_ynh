@@ -7,7 +7,7 @@
 app=jellystat
 nodejs_version=20
 backup_dir="$data_dir/backups"
-backup_data="/var/www/$app/backend/backup-data"
+backup_data="$install_dir/backend/backup-data"
 
 #=================================================
 # PERSONAL HELPERS
