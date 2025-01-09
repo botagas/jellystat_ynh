@@ -13,7 +13,7 @@ It shall NOT be edited by hand.
 
 *[Read this README in other languages.](./ALL_README.md)*
 
-> *This package allows you to install Jellystat quickly and simply on a YunoHost server.*
+> *This package allows you to install Jellystat quickly and simply on a YunoHost server.*  
 > *If you don't have YunoHost, please consult [the guide](https://yunohost.org/install) to learn how to install it.*
 
 ## Overview
@@ -36,8 +36,6 @@ Adapted for usage within Yunohost. Might behave even weirder.
 ## Screenshots
 
 ![Screenshot of Jellystat](./doc/screenshots/Activity.PNG)
-![Screenshot of Jellystat](./doc/screenshots/Home.PNG)
-![Screenshot of Jellystat](./doc/screenshots/Libraries.PNG)
 ![Screenshot of Jellystat](./doc/screenshots/Users.PNG)
 ![Screenshot of Jellystat](./doc/screenshots/settings.PNG)
 
