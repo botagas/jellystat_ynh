@@ -57,16 +57,10 @@ ram.runtime = "100M"
     home = "/var/www/jellystat"
 
     [resources.install_dir]
-    dir = "/var/www/jellystat"
+
     
     [resources.data_dir]
-    dir = "/home/yunohost.app/jellystat"
 
-    [resources.backup_dir]
-    backup_dir="/home/yunohost.app/jellystat/backups"
-    
-    [resources.backup_data]
-    backup_data="/var/www/jellystat/backend/backup-data"
     
     [resources.permissions]
     main.url = "/"
