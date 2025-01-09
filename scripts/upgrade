@@ -72,7 +72,7 @@ ynh_script_progression "Building app... This may take some time"
 
 cd "$install_dir"
 npm install
-npm run build
+ynh_hide_warnings npm run build
 
 #=================================================
 # CONFIGURE ENVIRONMENT VARIABLES
