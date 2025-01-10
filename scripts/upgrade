@@ -71,8 +71,8 @@ ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT 
 ynh_script_progression "Building app... This may take some time"
 
 cd "$install_dir"
-npm install
-ynh_hide_warnings npm run build
+ynh_hide_warnings npm install
+npm run build
 
 #=================================================
 # CONFIGURE ENVIRONMENT VARIABLES
