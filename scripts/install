@@ -93,7 +93,7 @@ ynh_nodejs_install
 
 ynh_script_progression "Installing and building app dependencies..." 
 cd "$install_dir"
-npm install
+ynh_hide_warnings npm install
 npm run build
 
 #=================================================
