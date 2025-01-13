@@ -44,7 +44,7 @@ chown -R "$app:www-data" "$install_dir/dist"
 ynh_script_progression "Restoring the systemd service..."
 
 ynh_restore "/etc/systemd/system/$app.service"
-systemctl enable "$app.service" --quiet
+ynh_systemctl --service="$app" --action="enable"
 
 #=================================================
 # RESTORE NGINX CONFIGURATION
