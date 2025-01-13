@@ -5,8 +5,8 @@ It shall NOT be edited by hand.
 
 # Jellystat for YunoHost
 
-[![Integration level](https://apps.yunohost.org/badge/integration/jellystat)](https://ci-apps.yunohost.org/ci/apps/jellystat/)
-![Working status](https://apps.yunohost.org/badge/state/jellystat)
+[![Integration level](https://img.shields.io/endpoint?url=https://yunorunner.tiesiog.lt/api/badge/jellystat/integration)](https://ci-apps.yunohost.org/ci/apps/jellystat/)
+![Working status](https://img.shields.io/endpoint?url=https://yunorunner.tiesiog.lt/api/badge/jellystat/status)
 ![Maintenance status](https://apps.yunohost.org/badge/maintained/jellystat)
 
 [![Install Jellystat with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=jellystat)
