@@ -166,10 +166,10 @@ done
 ynh_print_info "Creating admin user..."
 API_TOKEN_RESPONSE=$(ynh_hide_warnings curl -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}')
 API_TOKEN=$(ynh_hide_warnings echo "$API_TOKEN_RESPONSE" | jq -r '.token')
-ynh_app_setting_set --app=$app --key=apitoken --value="$API_TOKEN"
+ynh_app_setting_set --key=apitoken --value="$API_TOKEN"
 API_KEY_RESPONSE=$(ynh_hide_warnings curl -X POST http://127.0.0.1:$port/keys -H "Content-Type: application/json" -H "Authorization: Bearer $API_TOKEN" -d '{"name": "YunoHost"}')
 API_KEY=$(ynh_hide_warnings echo "$API_KEY_RESPONSE" | jq -r '.[-1].key')
-ynh_app_setting_set --app=$app --key=apikey --value="$API_KEY"
+ynh_app_setting_set --key=apikey --value="$API_KEY"
 
 # Debug the advanced state
 setup_state_response=$(curl -s -X GET http://127.0.0.1:$port/auth/isConfigured -H "Content-Type: application/json")
