@@ -164,9 +164,9 @@ done
 
 # Create the admin user
 ynh_print_info "Creating admin user..."
-curl -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}'
-API_RESPONSE=$(curl -X POST http://127.0.0.1:$port/keys -H "Content-Type: application/json" -d '{"name": "YunoHost"}'
-API_KEY=$(echo "$API_RESPONSE" | jq -r '.[-1].key')
+curl -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"})'
+API_RESPONSE=$(curl -X POST http://127.0.0.1:$port/keys -H "Content-Type: application/json" -d '{"name": "YunoHost"} --silent)'
+API_KEY=$(echo "$API_RESPONSE" | jq -r '.[-1].key' --silent)
 
 # Debug the advanced state
 setup_state_response=$(curl -s -X GET http://127.0.0.1:$port/auth/isConfigured -H "Content-Type: application/json")
