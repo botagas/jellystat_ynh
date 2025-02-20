@@ -162,16 +162,22 @@ for i in {1..30}; do
     fi
 done
 
-# Create the admin user
-ynh_print_info "Creating admin user..."
+#=================================================
+# SETUP USER AND API
+#=================================================
+ynh_script_progression "Starting setup for User and API..."
+
+ynh_print_info "Creating admin user and saving token..."
 API_TOKEN_RESPONSE=$(ynh_hide_warnings curl --silent --show-error --fail -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}')
 API_TOKEN=$(ynh_hide_warnings echo "$API_TOKEN_RESPONSE" | jq -r '.token')
 ynh_app_setting_set --key=api_token --value="$API_TOKEN"
+
+ynh_print_info "Creating and saving API key..."
 API_KEY_RESPONSE=$(ynh_hide_warnings curl --silent --show-error --fail -X POST http://127.0.0.1:$port/api/keys -H "Content-Type: application/json" -H "Authorization: Bearer $API_TOKEN" -d '{"name": "YunoHost"}')
 API_KEY=$(ynh_hide_warnings echo "$API_KEY_RESPONSE" | jq -r '.[-1].key')
 ynh_app_setting_set --key=api_key --value="$API_KEY"
 
-# Debug the advanced state
+ynh_print_info "Verifying whether setup was completed..."
 setup_state_response=$(curl -s -X GET http://127.0.0.1:$port/auth/isConfigured -H "Content-Type: application/json")
 ynh_print_warn "Setup state response: $setup_state_response"
 #=================================================
