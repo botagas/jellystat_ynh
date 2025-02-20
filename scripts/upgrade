@@ -86,9 +86,6 @@ chown -R "$app:$app" "$install_dir"
 # Adjust permissions for web-accessible directories
 chown -R "$app:www-data" "$install_dir/dist"
 
-# Adjust permissions for data
-chown -R "$app:$app" "$data_dir"
-
 #=================================================
 # CONFIGURE SYSTEMD SERVICE
 #=================================================
