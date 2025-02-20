@@ -90,7 +90,7 @@ ynh_nodejs_install
 # RELOAD AND START SERVICES
 #=================================================
 ynh_script_progression "Reloading and starting services..."
-
+yunohost service add "$app" --description="Jellystat statistics service"
 ynh_systemctl --service="$app" --action="start" --log_path="systemd" --timeout=30
 ynh_systemctl --service=nginx --action=reload
 
