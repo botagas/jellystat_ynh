@@ -92,6 +92,7 @@ chown -R "$app:www-data" "$install_dir/dist"
 ynh_script_progression "Configuring $app's systemd service..."
 
 # Create a dedicated systemd config
+yunohost service add "$app" --description="Jellystat statistics service"
 ynh_config_add_systemd
 
 #=================================================
