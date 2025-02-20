@@ -59,9 +59,6 @@ ram.runtime = "100M"
     [resources.install_dir]
     dir = "/var/www/jellystat"
     
-    [resources.data_dir]
-    dir = "/home/yunohost.app/jellystat"
-    
     [resources.permissions]
     main.url = "/"
 
