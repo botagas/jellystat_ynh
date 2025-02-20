@@ -14,7 +14,6 @@ ynh_print_info "Declaring files to be backed up..."
 #=================================================
 
 BACKUP_CORE_ONLY=0 ynh_backup "$install_dir"
-ynh_backup "$data_dir" --not-mandatory
 
 #=================================================
 # BACKUP SYSTEM CONFIGURATION
