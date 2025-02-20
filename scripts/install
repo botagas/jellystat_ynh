@@ -81,7 +81,6 @@ ynh_replace --match="\"host\": \"\"" --replace="\"host\": \"$domain\"" --file="$
 ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT || $port;" --file="$install_dir/backend/server.js"
 
 # Set up backupfolder according to source /classes/backup.js file
-mkdir -p "$data_dir"
 mkdir -p "$backup_dir"
 mkdir -p "$backup_data"
 
@@ -123,9 +122,6 @@ chown "$app:$app" "$install_dir/.env"
 # Adjust permissions for web-accessible directories
 # chown -R "$app:www-data" "$install_dir/backend"
 chown -R "$app:www-data" "$install_dir/dist"
-
-# Adjust permissions for data
-chown -R "$app:$app" "$data_dir"
 
 #=================================================
 # SET UP SYSTEMD SERVICE
