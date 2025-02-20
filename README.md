@@ -31,7 +31,7 @@ Adapted for usage within Yunohost. Might behave even weirder.
 - Jellyfin Statistics Plugin Integration
 
 
-**Shipped version:** 1.1.2~ynh1
+**Shipped version:** 1.1.3~ynh1
 
 ## Screenshots
 
