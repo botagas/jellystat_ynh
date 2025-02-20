@@ -14,7 +14,6 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Restoring the app main directory..."
 
 ynh_restore "$install_dir"
-ynh_restore "$data_dir"
 
 # Retrieve database and user values from the app setting
 postgres_db=$(ynh_app_setting_get --app=$app --key=postgres_db)
