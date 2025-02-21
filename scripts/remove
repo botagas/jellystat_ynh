@@ -20,7 +20,7 @@ if systemctl is-active --quiet "$app"; then
     ynh_systemctl --service="$app" --action="stop"
 fi
 
-yunohost service remove "$app"
+ynh_hide_warnings yunohost service remove "$app"
 ynh_config_remove_systemd
 
 #=================================================
