@@ -81,7 +81,6 @@ ynh_replace --match="\"host\": \"\"" --replace="\"host\": \"$domain\"" --file="$
 ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT || $port;" --file="$install_dir/backend/server.js"
 
 # Set up backupfolder according to source /classes/backup.js file
-mkdir -p "$data_dir"
 mkdir -p "$backup_dir"
 mkdir -p "$backup_data"
 
@@ -124,14 +123,12 @@ chown "$app:$app" "$install_dir/.env"
 # chown -R "$app:www-data" "$install_dir/backend"
 chown -R "$app:www-data" "$install_dir/dist"
 
-# Adjust permissions for data
-chown -R "$app:$app" "$data_dir"
-
 #=================================================
 # SET UP SYSTEMD SERVICE
 #=================================================
 
 ynh_script_progression "Setting up systemd service..." 
+yunohost service add "$app" --description="Jellystat statistics service"
 ynh_config_add_systemd
 
 #=================================================
@@ -162,11 +159,22 @@ for i in {1..30}; do
     fi
 done
 
-# Create the admin user
-ynh_print_info "Creating admin user..."
-curl -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}'
+#=================================================
+# SETUP USER AND API
+#=================================================
+ynh_script_progression "Starting setup for User and API..."
 
-# Debug the advanced state
+ynh_print_info "Creating admin user and saving token..."
+API_TOKEN_RESPONSE=$(ynh_hide_warnings curl --silent --show-error --fail -X POST http://127.0.0.1:$port/auth/createuser -H "Content-Type: application/json" -d '{"username": "'"$js_user"'", "password": "'"$js_password"'"}')
+API_TOKEN=$(ynh_hide_warnings echo "$API_TOKEN_RESPONSE" | jq -r '.token')
+ynh_app_setting_set --key=api_token --value="$API_TOKEN"
+
+ynh_print_info "Creating and saving API key..."
+API_KEY_RESPONSE=$(ynh_hide_warnings curl --silent --show-error --fail -X POST http://127.0.0.1:$port/api/keys -H "Content-Type: application/json" -H "Authorization: Bearer $API_TOKEN" -d '{"name": "YunoHost"}')
+API_KEY=$(ynh_hide_warnings echo "$API_KEY_RESPONSE" | jq -r '.[-1].key')
+ynh_app_setting_set --key=api_key --value="$API_KEY"
+
+ynh_print_info "Verifying whether setup was completed..."
 setup_state_response=$(curl -s -X GET http://127.0.0.1:$port/auth/isConfigured -H "Content-Type: application/json")
 ynh_print_warn "Setup state response: $setup_state_response"
 #=================================================

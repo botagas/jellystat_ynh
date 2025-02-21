@@ -86,15 +86,13 @@ chown -R "$app:$app" "$install_dir"
 # Adjust permissions for web-accessible directories
 chown -R "$app:www-data" "$install_dir/dist"
 
-# Adjust permissions for data
-chown -R "$app:$app" "$data_dir"
-
 #=================================================
 # CONFIGURE SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Configuring $app's systemd service..."
 
 # Create a dedicated systemd config
+yunohost service add "$app" --description="Jellystat statistics service"
 ynh_config_add_systemd
 
 #=================================================

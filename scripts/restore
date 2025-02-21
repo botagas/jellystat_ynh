@@ -14,7 +14,6 @@ source /usr/share/yunohost/helpers
 ynh_script_progression "Restoring the app main directory..."
 
 ynh_restore "$install_dir"
-ynh_restore "$data_dir"
 
 # Retrieve database and user values from the app setting
 postgres_db=$(ynh_app_setting_get --app=$app --key=postgres_db)
@@ -28,9 +27,6 @@ ynh_script_progression "Restoring the environment variables file..."
 # Set permissions for the .env file, if present
 chmod 600 "$install_dir/.env"
 chown "$app:$app" "$install_dir/.env"
-
-# Set permissions for data_dir
-chown "$app:$app" "$data_dir"
 
 # Set permissions for the entire install directory
 chown -R "$app:$app" "$install_dir"
@@ -94,7 +90,7 @@ ynh_nodejs_install
 # RELOAD AND START SERVICES
 #=================================================
 ynh_script_progression "Reloading and starting services..."
-
+yunohost service add "$app" --description="Jellystat statistics service"
 ynh_systemctl --service="$app" --action="start" --log_path="systemd" --timeout=30
 ynh_systemctl --service=nginx --action=reload
 

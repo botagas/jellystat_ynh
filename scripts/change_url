@@ -22,17 +22,6 @@ ynh_script_progression "Updating NGINX web server configuration..."
 ynh_config_change_url_nginx
 
 #=================================================
-# SPECIFIC MODIFICATIONS
-#=================================================
-
-# If the app references the installation URL (domain/path) in its configuration
-# For Jellystat, we assume environment variables handle the URL, and no additional changes are required.
-# Uncomment the block below if you need to replace specific paths in configuration files.
-
-# Example of modifying configuration:
-# ynh_replace_string --match_string="old_value" --replace_string="new_value" --target_file="/path/to/config/file"
-
-#=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
