@@ -175,7 +175,7 @@ API_KEY=$(ynh_hide_warnings echo "$API_KEY_RESPONSE" | jq -r '.[-1].key')
 ynh_app_setting_set --key=api_key --value="$API_KEY"
 
 ynh_print_info "Verifying whether setup was completed..."
-setup_state_response=$(curl -s -X GET http://127.0.0.1:$port/auth/isConfigured -H "Content-Type: application/json")
+setup_state_response=$(ynh_hide_warnings curl --silent --show-error --fail -X GET http://127.0.0.1:$port/auth/isConfigured -H "Content-Type: application/json")
 ynh_print_warn "Setup state response: $setup_state_response"
 #=================================================
 # FINISH INSTALLATION
