@@ -65,6 +65,9 @@ ynh_replace --match="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace="'CREA
 # Update server.js to use the allocated port
 ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT || $port;" --file="$install_dir/backend/server.js"
 
+mkdir -p "$backup_dir"
+mkdir -p "$backup_data"
+
 #=================================================
 # BUILD THE APP
 #=================================================
