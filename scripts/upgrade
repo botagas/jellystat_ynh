@@ -56,9 +56,6 @@ ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env"
 #=================================================
 ynh_script_progression "Updating critical files..."
 
-# Update swagger.json to set the host as the domain
-ynh_replace --match="\"host\": \"\"" --replace="\"host\": \"$domain\"" --file="$install_dir/backend/swagger.json"
-
 # Update create_database.js for PostgreSQL compatibility
 ynh_replace --match="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace="'CREATE DATABASE IF NOT EXISTS ${postgres_db};'" --file="$install_dir/backend/create_database.js"
 
