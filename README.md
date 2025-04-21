@@ -19,7 +19,7 @@ A statistics dashboard for Jellyfin servers.
 
 ## 📦 Developer info
 
-[![Automatic tests level]()](https://ci-apps.yunohost.org/ci/apps/jellystat/)
+[![Automatic tests level](https://yunorunner.tiesiog.lt/api/badge/jellystat/integration)](https://ci-apps.yunohost.org/ci/apps/jellystat/)
 
 🛠️ Upstream Jellystat repository: <https://github.com/CyferShepard/Jellystat>
 
