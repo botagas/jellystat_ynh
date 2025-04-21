@@ -74,9 +74,6 @@ ynh_setup_source --dest_dir="$install_dir" --source_id="main"
 # Update create_database.js to use "IF NOT EXISTS"
 ynh_replace --match="'CREATE DATABASE ' \\+ _POSTGRES_DATABASE" --replace="'CREATE DATABASE IF NOT EXISTS ${postgres_db};'" --file="$install_dir/backend/create_database.js"
 
-# Update swagger.json to set host as the domain
-ynh_replace --match="\"host\": \"\"" --replace="\"host\": \"$domain\"" --file="$install_dir/backend/swagger.json"
-
 # Update server.js to use the allocated port
 ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT || $port;" --file="$install_dir/backend/server.js"
 
