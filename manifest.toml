@@ -6,7 +6,7 @@ id = "jellystat"
 name = "Jellystat"
 description.en = "A statistics dashboard for media servers."
 
-version = "1.1.5~ynh1"
+version = "1.1.6~ynh1"
 
 maintainers = ["botagas"]
 
@@ -48,8 +48,8 @@ ram.runtime = "100M"
 [resources]
     [resources.sources]
     [resources.sources.main]
-    url = "https://github.com/CyferShepard/Jellystat/archive/refs/tags/1.1.5.tar.gz"
-    sha256 = "82e7ab73b13ffe69c9e3fd44906f88a044315e796d61444f3ed11e0be9728e3e"
+    url = "https://github.com/CyferShepard/Jellystat/archive/refs/tags/1.1.6.tar.gz"
+    sha256 = "af9f064895fd8e827ea12f62d0696859dab8a7d568011730f5b3b3a9f1aafdc8"
     branch = "main"
     autoupdate.strategy = "latest_github_tag"
 
