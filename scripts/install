@@ -80,7 +80,6 @@ ynh_replace --match="^const PORT = .*" --replace="const PORT = process.env.PORT 
 # Set up backupfolder according to source /classes/backup.js file
 mkdir -p "$backup_dir"
 mkdir -p "$backup_data"
-ln -s "$install_dir/backend/tasks" "$install_dir/tasks"
 
 #=================================================
 # INSTALL NPM DEPENDENCIES AND BUILD
@@ -110,6 +109,9 @@ JS_PASSWORD=$js_password
 JWT_SECRET=$jwt_secret
 PORT=$port
 EOL
+
+# Add symlink for tasks
+ln -s "$install_dir/backend/tasks" "$install_dir/tasks"
 
 # Set permissions for the entire install directory
 chown -R "$app:$app" "$install_dir"
