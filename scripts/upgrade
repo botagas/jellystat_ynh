@@ -77,6 +77,9 @@ npm run build
 
 ynh_script_progression "Configuring environment variables..." 
 
+# Add symlink for tasks
+ln -s "$install_dir/backend/tasks" "$install_dir/tasks"
+
 # Set permissions for the entire install directory
 chown -R "$app:$app" "$install_dir"
 
