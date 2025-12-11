@@ -34,6 +34,12 @@ chown -R "$app:$app" "$install_dir"
 # Adjust permissions for web-accessible directories
 chown -R "$app:www-data" "$install_dir/dist"
 
+# Set up backupfolder according to source /classes/backup.js file
+mkdir -p "$backup_dir"
+mkdir -p "$backup_data"
+chown -R "$app:$app" "$backup_dir"
+chown -R "$app:$app" "$backup_data"
+
 #=================================================
 # RESTORE SYSTEMD SERVICE
 #=================================================
